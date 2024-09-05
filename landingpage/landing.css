@@ -1,0 +1,367 @@
+body { 
+  background-image: url(../assets/img/colores\ bitness.png); /* Corregir la ruta de la imagen */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed; 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c979e9; /* Color de fondo del navbar */
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-left li {
+  margin: 0 15px;
+}
+
+.navbar-left a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-left a:hover {
+  color: #1f7fdd; /* Color de hover en los enlaces */
+}
+
+.navbar-left a.active {
+  position: relative;
+  color: #007BFF; /* Color del enlace activo */
+}
+
+.navbar-left a.active::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 100%;
+  background-color: #007BFF; /* Indicador vertical del enlace activo */
+}
+
+.logo {
+  height: 40px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-button {
+  background-color: #1f7fdd; /* Color del botón */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #1b6cbf; /* Color de hover en el botón */
+}
+
+header {
+  margin-top: 60px; /* Espacio para que el contenido no quede cubierto por el navbar fijo */
+  padding: 20px;
+}
+
+
+
+/* MODAL REGISTRO */
+/* Estilos del modal */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed; /* Fijo en la pantalla */
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Evita el desplazamiento del contenido */
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+  padding: 0;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: transparent;
+  margin: 5% auto; /* Ajusta el margen para centrar verticalmente */
+  padding: 20px;
+  width: 80%; /* Ancho del modal */
+  max-height: 90vh; /* Ajusta la altura máxima del modal */
+  overflow-y: auto; /* Permite desplazamiento vertical si el contenido es demasiado grande */
+  position: relative; /* Necesario para el botón de cerrar */
+  padding: 0;
+}
+
+/* Botón de cerrar */
+.close {
+  color: #aaa;
+  float: right; /* Ubica el botón en la esquina superior derecha */
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute; /* Permite posicionar el botón en relación al modal */
+  top: 10px; /* Ajusta la distancia desde el borde superior del modal */
+  right: 20px; /* Ajusta la distancia desde el borde derecho del modal */
+}
+
+/* Cambia el color del botón cuando el mouse pasa sobre él */
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Ajusta el formulario */
+#modalBody {
+  padding-top: 30px; /* Añade espacio en la parte superior para el botón de cerrar */
+}
+
+
+
+
+
+
+/*SUBSCRIPCIONES*/
+
+.subs {
+  background: yellow;
+  padding: 40px 20px;
+}
+
+.subs .details {
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.subs .details h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.subs .details p {
+  font-size: 16px;
+}
+
+.subs .grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #a31010;
+  box-shadow: -4px 4px 0px 0px #ffffff,
+    -5px 5px 0px 0px rgba(233, 3, 3, 0.74); /* Borde alrededor de la sombra */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: -8px 8px 0px 0px #200101;
+}
+
+.header {
+  background-color: #2b2b3a;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.content {
+  background-color: #fff;
+  padding: 16px;
+}
+
+.content h2 {
+  font-size: 24px;
+  margin: 0;
+  color: #2b2b3a;
+}
+
+.content p {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
+  text-align: center;
+}
+
+.details {
+  margin-top: 16px;
+  border-top: 1px dotted #ccc;
+  padding-top: 12px;
+}
+
+.details p {
+  font-size: 14px;
+  margin: 4px 0;
+  color: #2b2b3a;
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.footer span {
+  font-size: 14px;
+  color: #555;
+}
+
+.icon {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Placeholder styling for the icon */
+.icon {
+  width: 16px;
+  height: 16px;
+  background-color: #ccc;
+  display: inline-block;
+}
+
+
+
+
+footer {
+  padding: 20px;
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+
+.img-centro {
+  width: 600px;
+  height: auto;
+  position: relative;
+  left: 400px;
+  top: 50px;
+}
+
+
+
+/*CARTAA*/
+.card {
+  position: relative;
+  left: 20px;
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #a31010;
+  box-shadow: -4px 4px 0px 0px #ffffff,
+    -5px 5px 0px 0px rgba(233, 3, 3, 0.74); /* Borde alrededor de la sombra */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translate(4px, -4px); /* Mueve 4px a la derecha y 4px hacia arriba */
+  box-shadow: -8px 8px 0px 0px #200101;
+}
+
+.header {
+  background-color: #2b2b3a;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px;
+  font-weight: bold;
+}
+
+.content {
+  background-color: #fff;
+  padding: 16px;
+}
+
+.content h2 {
+  font-size: 20px;
+  margin: 0;
+  color: #2b2b3a;
+}
+
+.content p {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
+}
+
+.details {
+  margin-top: 16px;
+  border-top: 1px dotted #ccc;
+  padding-top: 12px;
+}
+
+.details p {
+  font-size: 14px;
+  margin: 4px 0;
+  color: #2b2b3a;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.footer span {
+  font-size: 14px;
+  color: #555;
+}
+
+.icon {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Placeholder styling for the icon */
+.icon {
+  width: 16px;
+  height: 16px;
+  background-color: #ccc;
+  display: inline-block;
+}

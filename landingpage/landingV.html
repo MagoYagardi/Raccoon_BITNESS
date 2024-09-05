@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Landing Page</title>
+    <link rel="icon" href="../assets/img/BITnessGYM_mini.png" type="image/png">
+    <link rel="stylesheet" href="../landingpage/landing.css"> <!-- Enlace a tu archivo CSS -->
+    <script src="../config/jquery-3.7.1.min.js"></script> <!-- Enlace a jQuery -->
+    <script src="../landingpage/landingV.js" defer></script> <!-- Enlace a tu archivo JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script type="module" src="animationsV.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <ul>
+                <li>
+                    <a href="landingV.html">
+                        <img src="../assets/img/BITnessGYM_isologo.png" alt="Logo" class="logo" />
+                    </a>
+                </li>
+                <li>
+                    <a href="../actividades/actividadesV.html">Actividades</a>
+                </li>
+                <li>
+                    <a href="../entrenadores/entrenadoresV.html">Entrenadores</a>
+                </li>
+                <li>
+                  <a href="../carrito/carritoV.html">Carrito</a>
+              </li>
+          </ul>
+      </div>
+      <div class="navbar-right">
+        <button id="btn-registro" class="nav-button">START!</button>
+      </div>
+  </nav>
+
+    <header>
+        <h1>LANDING PAGE</h1>
+    </header>
+
+     <!-- Modal para registro -->
+     <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeButton" class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+
+
+
+    <!--carta de ejemlo -->
+    <div class="card">
+        <div class="header">Career path</div>
+        <div class="content">
+            <h2>Full-Stack Engineer</h2>
+            <p>A full-stack engineer can get a project done from start to finish, back-end to front-end.</p>
+            <div class="details">
+                <p><strong>Includes 51 Courses</strong></p>
+                <p><img src="icon-placeholder.png" alt="Icon" class="icon"> With <strong>Professional Certification</strong></p>
+                <div class="footer">
+                    <span>Beginner Friendly</span>
+                    <span>150 hours</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <main>
+        
+        <img class="img-centro" src="../assets/img/—Pngtree—happy corporate business professional one_13504468.png">
+    
+         <!-- Sección de suscripciones -->
+         <section class="subs">
+            <div class="details">
+                <h2>Suscripciones</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum rem delectus nulla eos asperiores molestiae sint fugit accusamus.</p>
+            </div>
+        
+            <div class="grid">
+                <div class="card">
+                    <div class="header">Basics</div>
+                    <div class="content">
+                        <h2>$600</h2>
+                        <p>per month</p>
+                        <div class="details">
+                            <p><strong>1 CPU</strong></p>
+                            <p>500 GB</p>
+                            <p>2 users allowed</p>
+                            <p>Additional feature</p>
+                            <div class="footer">
+                                <span>Beginner Friendly</span>
+                                <span>Learn more</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div class="header">Standard</div>
+                    <div class="content">
+                        <h2>$1200</h2>
+                        <p>per month</p>
+                        <div class="details">
+                            <p><strong>2 CPUs</strong></p>
+                            <p>1 TB</p>
+                            <p>5 users allowed</p>
+                            <p>Additional feature</p>
+                            <div class="footer">
+                                <span>Intermediate Level</span>
+                                <span>Learn more</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div class="header">Pro</div>
+                    <div class="content">
+                        <h2>$1800</h2>
+                        <p>per month</p>
+                        <div class="details">
+                            <p><strong>4 CPUs</strong></p>
+                            <p>2 TB</p>
+                            <p>10 users allowed</p>
+                            <p>Additional feature</p>
+                            <div class="footer">
+                                <span>Advanced Level</span>
+                                <span>Learn more</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+         
+        
+        
+        
+        
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>Precio</th>
+                    <th>Características</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Básico</td>
+                    <td>$20/mes</td>
+                    <td>Acceso limitado</td>
+                </tr>
+                <tr>
+                    <td>Premium</td>
+                    <td>$50/mes</td>
+                    <td>Acceso completo + Clases en vivo</td>
+                </tr>
+                <tr>
+                    <td>VIP</td>
+                    <td>$100/mes</td>
+                    <td>Acceso completo + Entrenador personal</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Sección con navbar vertical y explicaciones -->
+    <section id="info-section">
+        <nav id="vertical-navbar">
+            <ul>
+                <li><a href="#info1">Información 1</a></li>
+                <li><a href="#info2">Información 2</a></li>
+                <li><a href="#info3">Información 3</a></li>
+                <li><a href="#info4">Información 4</a></li>
+            </ul>
+        </nav>
+
+        <div id="info-content">
+            <article id="info1">
+                <h3>Información 1</h3>
+                <p>Detalles sobre la información 1...</p>
+            </article>
+            <article id="info2">
+                <h3>Información 2</h3>
+                <p>Detalles sobre la información 2...</p>
+            </article>
+            <article id="info3">
+                <h3>Información 3</h3>
+                <p>Detalles sobre la información 3...</p>
+            </article>
+            <article id="info4">
+                <h3>Información 4</h3>
+                <p>Detalles sobre la información 4...</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Grid de productos estilo "bento" -->
+    <section id="product-grid">
+        <h2>Nuestros Productos</h2>
+        <div class="bento-grid">
+            <div class="product-item">
+                <img src="product1.jpg" alt="Producto 1">
+                <h4>Producto 1</h4>
+                <p>Descripción del producto 1</p>
+            </div>
+            <div class="product-item">
+                <img src="product2.jpg" alt="Producto 2">
+                <h4>Producto 2</h4>
+                <p>Descripción del producto 2</p>
+            </div>
+            <div class="product-item">
+                <img src="product3.jpg" alt="Producto 3">
+                <h4>Producto 3</h4>
+                <p>Descripción del producto 3</p>
+            </div>
+            <!-- Agrega más productos según sea necesario -->
+        </div>
+    </section>
+
+    <!-- Sección de actividades -->
+    <section id="activities">
+        <h2>Nuestras Actividades</h2>
+
+        <article class="activity">
+            <aside class="activity-image">
+                <img src="boxeo.jpg" alt="Boxeo">
+            </aside>
+            <div class="activity-text">
+                <h3>Boxeo</h3>
+                <p>Descripción de la actividad de boxeo...</p>
+            </div>
+        </article>
+
+        <article class="activity">
+            <aside class="activity-image">
+                <img src="running.jpg" alt="Running">
+            </aside>
+            <div class="activity-text">
+                <h3>Running</h3>
+                <p>Descripción de la actividad de running...</p>
+            </div>
+        </article>
+
+        <!-- Agrega más actividades según sea necesario -->
+    </section>
+
+    <footer>
+        <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.</p>
+    </footer>
+
+
+    <div id="modal" style="display: none;">
+        <div id="modal-content"></div> <!-- Aquí se insertará el contenido de registroV.php -->
+    </div>
+</body>
+</html>

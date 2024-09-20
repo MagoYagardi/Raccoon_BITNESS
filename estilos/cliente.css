@@ -1,0 +1,62 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilo para el contenedor principal */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilo del título */
+h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Estilo del texto */
+p {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+/* Estilo del botón */
+a {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo del mensaje de bienvenida */
+.welcome-message {
+    font-size: 1.2rem;
+    color: #16a085;
+    margin-bottom: 20px;
+    background-color: #eafaf1;
+    padding: 10px;
+    border-radius: 8px;
+}

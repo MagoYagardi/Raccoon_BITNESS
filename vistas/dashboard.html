@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="icon" href="../assets/img/BITnessGYM_mini.png" type="image/png">
+    <link rel="stylesheet" href="../estilos/landing.css"> <!-- Enlace a tu archivo CSS -->
+    <script src="../config/jquery-3.7.1.min.js"></script> <!-- Enlace a jQuery -->
+    <script src="../controladores/landingV.js" defer></script> <!-- Enlace a tu archivo JavaScript -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <ul>
+                <li>
+                    <a href="../vistas/landingV.html">
+                        <img src="../assets/img/BITnessGYM_isologo.png" alt="Logo" class="logo" />
+                    </a>
+                </li>
+                <li>
+                    <a href="../vistas/actividadesV.html">Actividades</a>
+                </li>
+                <li>
+                    <a href="../vistas/entrenadoresV.html">Entrenadores</a>
+                </li>
+                <li>
+                    <a href="../vistas/carritoV.html">Carrito</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-right">
+          <button id="btn-registro" class="nav-button">START!</button>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Dashboard</h1>
+    </header>
+    
+    <main>
+        <!-- Contenido principal -->
+    </main>
+
+    <footer>
+        <!-- Contenido del pie de página -->
+    </footer>
+
+    <div id="modal" style="display: none;">
+        <div id="modal-content"></div> <!-- Aquí se insertará el contenido de registroV.php -->
+    </div>
+</body>
+</html>

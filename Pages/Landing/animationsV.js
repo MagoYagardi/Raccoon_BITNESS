@@ -1,4 +1,6 @@
 
+/*GSAP*/
+
 /*
 let tl = gsap.timeline({
     repeat: 0,
@@ -129,3 +131,17 @@ $(document).ready(function () {
         clickedWindows--; // Ajustar el contador al reabrir
     }
 });
+
+
+/*ANIMACIONES SLIDESHOW DE FUNCIONES*/
+
+jQuery(document).ready(function ($) {
+    $(".slider-img").on("click", function () {
+      $(".slider-img").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+
+  /*ANIMACIONES BENTO GRID PRODUCTOS*/
+  

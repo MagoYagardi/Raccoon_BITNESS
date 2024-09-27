@@ -27,8 +27,8 @@
                     </div>
                 </div>
                 <!--formularios de login y registro-->
-                <div class="contenedor-form">
-                    <form action="" class="log-form">
+                <div class="contenedor-form" method="POST" action="">
+                    <form class="log-form" method="POST">
                         <h1>Login</h1>
                         <input type="email" placeholder="Correo Electronico" name="correo" required>
                         <p class="LoginEmailError error-message">err</p>
@@ -37,7 +37,7 @@
                         <button id="logearse-boton">Log in</button>
                     </form>
                 
-                    <form action="" class="registro-form">
+                    <form class="registro-form" method="POST" action="">
                         <h1>Registro</h1>
                         <input type="text" placeholder="Nombre" name="nombre_usuario" required>
                         <p class="NombreUserError error-message">err</p>
@@ -54,8 +54,14 @@
 
         </div>
     </main>
+
+    <footer>
+        
+
+        <!-- Contenido del pie de página -->
+    </footer>
     <script src="../config/jquery-3.7.1.min.js"></script> <!-- Enlace a jQuery -->
-    <script src="../controladores/registro/registroC.js"></script> <!-- Enlace a tu archivo JavaScript -->
+    <script src="../controladores/registro/registroC.js" defer></script> <!-- Enlace a tu archivo JavaScript -->
     <script src="../controladores/registro/registroV.js"></script>
     <script src="../controladores/redireccion.js"></script>
 </body>

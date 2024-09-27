@@ -28,11 +28,11 @@ $(document).ready(function() {
     });
 });
 
+
+
 //navbar  navegation
 
 // subrayado
-
-
 
 $(document).ready(function() {
     const activePage = window.location.pathname;
@@ -47,6 +47,7 @@ $(document).ready(function() {
         }
     });
 });
+
 // navbar scrolled
 
 $(window).on("scroll", () => {

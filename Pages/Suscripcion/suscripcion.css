@@ -1,0 +1,272 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+/* Estiliza la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 20px; /* Ancho de la barra de desplazamiento */
+  }
+  
+  /* Estiliza el thumb (la parte que se mueve) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #d1a8ff; /* Cambia el color cuando se hace hover */
+    border: 3px solid #000000;
+    border-radius: 3px; /* Bordes redondeados */
+  }
+  
+  /* Estiliza el track (la pista por donde se mueve el thumb) */
+  ::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Color del fondo del scroll */
+    border-left:3px solid #000000;
+    border-right:3px solid #000000;
+  }
+  
+  /* Estilo para cuando el thumb es "hovered" (al pasar el cursor por encima) */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #000000; /* Cambia el color cuando se hace hover */
+  
+  }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent; /* Color de fondo del navbar */
+    padding: 10px 20px;
+    padding-top: 30px;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    color: white;
+    height: 5vh;
+    border-bottom: 2px solid transparent;
+  
+    transition: background-color 0.4s ease-in-out;
+  }
+  
+  /* scrolled navbar*/
+  
+  .scrolled {
+    background-color: white;
+    text-decoration: none;
+    border-bottom: 3px solid #200101;
+  }
+  
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-left ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-left li {
+    margin: 1px 20px;
+    margin-top: 60px;
+  }
+  
+  /* Estilo general para los enlaces del navbar */
+  .navbar-links {
+    position: relative; /* Permite el uso de pseudoelementos */
+    display: inline-block; /* Asegura que el enlace sea un bloque en línea para aplicar padding y margin */
+    text-decoration: none; /* Elimina el subrayado predeterminado */
+    color: white; /* Color de texto por defecto */
+    transition: color 0.3s ease; /* Transición suave para el cambio de color del texto */
+  }
+  
+  /*hover de links navbar sin scroll*/
+  .navbar-links:hover {
+    color: #1f7fdd; 
+  }
+  
+  /*estilos de links con scroll*/
+  .navbar-links.scrolled {
+    background: transparent;
+    border-bottom: none;
+    color: black;
+  }
+  
+  /*hover de links navbar con scroll*/
+  .navbar-links.scrolled:hover {
+    color: #1f7fdd;
+  }
+  
+  
+  /*estilo de link actual visitado */
+  .navbar-links.active {
+    color: #a31010; /* Color del texto cuando el enlace está activo */
+  }
+  
+  
+  .logo {
+    width: 200px; /* Ancho fijo para el logo */
+    height: auto; /* Mantiene la proporción del logo */
+    position: relative;
+    top: -10px;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 50px;
+  }
+  
+  .nav-button {
+    font-family: DIGITAL;
+    background-color: #d1a8ff;
+    border: 2px solid black;
+    border-radius: 6px;
+    padding: 10px 50px;
+    color: black;
+    font-size: 16px;
+    margin-top: -15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 5px 5px black; /* Sombra inicial que simula estar flotando */
+  }
+  .nav-button:hover {
+    box-shadow: none; /* Elimina la sombra cuando se presiona */
+    transform: translate(4px, 4px); /* Simula que el botón se "presiona" */
+  }
+  
+  @keyframes anim {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .button-anim {
+    animation: anim 1s ease-in-out infinite;
+  }
+
+
+  .container {
+    width: 100%;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Mapa y ubicaciones */
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+#map {
+    width: 60%;
+    height: 500px;
+    border: 2px solid #333;
+}
+
+.locations {
+    width: 35%;
+    padding: 20px;
+}
+
+.location-card {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s, border 0.3s, transform 0.3s;
+}
+
+.location-card:hover {
+    background-color: #f0f0f0;
+}
+
+.location-card.expanded {
+    background-color: #dff0d8;
+    border: 2px solid #333;
+    transform: scale(1.05);
+}
+
+.location-card .select-btn {
+    display: none;
+}
+
+.location-card.expanded .select-btn {
+    display: block;
+}
+
+/* Sección de suscripciones */
+.subscriptions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.subscription-card {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    width: 30%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.subscription-card:hover {
+    background-color: #e7e7e7;
+    transform: scale(1.05);
+}
+
+.pay-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.pay-btn:hover {
+    background-color: #555;
+}
+
+/* Sección de pago */
+.payment-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#payment-form {
+    display: inline-block;
+    text-align: left;
+}
+
+#payment-form input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.pay-now-btn {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.pay-now-btn:hover {
+    background-color: #555;
+}

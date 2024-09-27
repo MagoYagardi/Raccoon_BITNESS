@@ -6,12 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Landing Page</title>
     <link rel="icon" href="../assets/img/BITnessGYM_mini.png" type="image/png">
-    <link rel="stylesheet" href="../estilos/landing.css"> <!-- Enlace a tu archivo CSS -->
+
+    <!-- Enlaces unicos-->
+    <script src="landingV.js" defer></script> 
+    <link rel="stylesheet" href="landing.css">
+    <script type="module" src="animationsV.js"></script>
+    <!-- Enlaces globales-->
     <link rel="stylesheet" href="../estilos/global.css">
-    <script src="../config/jquery-3.7.1.min.js"></script> <!-- Enlace a jQuery -->
+    <script src="../config/jquery-3.7.1.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
-    <script type="module" src="../controladores/animationsV.js"></script>
 </head>
 
 <body>
@@ -49,12 +53,10 @@
         </div>
     </div>
 
+    <img class="img-centro" src="../assets/img/runing.png">
 
-        
-        <img class="img-centro" src="../assets/img/runing.png">
-
-       <!-- ventanas del laning  -->
-        <div class="window-container">
+       <!-- ventanas del laning con actividades WINDOWS  -->
+    <div class="window-container">
             <div class="window">
                 <div class="card-win">
                     <div class="header-win">Basics</div>
@@ -125,30 +127,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-            <!-- Repetir la ventana 5 veces más para el efecto en cascada -->
-           
-
-    <!--  
-        carta de ejemlo 
-
-    <div class="card">
-        <div class="header">Career path</div>
-        <div class="content">
-            <h2>Full-Stack Engineer</h2>
-            <p>A full-stack engineer can get a project done from start to finish, back-end to front-end.</p>
-            <div class="details">
-                <p><strong>Includes 51 Courses</strong></p>
-                <p><img src="icon-placeholder.png" alt="Icon" class="icon"> With <strong>Professional Certification</strong></p>
-                <div class="footer">
-                    <span>Beginner Friendly</span>
-                    <span>150 hours</span>
-                </div>
-            </div>
-        </div>
     </div>
-    -->
 
+    <!-- cinta horizontal señalando las suscripciones  SUBSCARDS-->
     <article class="marquee-container-real">
     <div class="marquee-container">
         <div class="marquee-content">
@@ -184,7 +165,7 @@
 </section>
 
 
-    <!-- Sección de suscripciones -->
+    <!-- Sección de suscripciones  SUBSCARDS-->
     <section class="subs">
             <div class="details">
                 <h2> <SPAn><</SPAn>ELIJE TU SUSCRIPCION <SPAn>></SPAn> </h2>
@@ -247,119 +228,83 @@
                 </div>
             </div>
     </section>       
-         
         
-        
-        
-        
-        <table>
 
-            <thead>
-                <tr>
-                    <th>Plan</th>
-                    <th>Precio</th>
-                    <th>Características</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Básico</td>
-                    <td>$20/mes</td>
-                    <td>Acceso limitado</td>
-                </tr>
-                <tr>
-                    <td>Premium</td>
-                    <td>$50/mes</td>
-                    <td>Acceso completo + Clases en vivo</td>
-                </tr>
-                <tr>
-                    <td>VIP</td>
-                    <td>$100/mes</td>
-                    <td>Acceso completo + Entrenador personal</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    <!-- seccion de explicacio de servicos SLIDESHOWS -->
 
-    <!-- Sección con navbar vertical y explicaciones -->
-    <section id="info-section">
-        <nav id="vertical-navbar">
-            <ul>
-                <li><a href="#info1">Información 1</a></li>
-                <li><a href="#info2">Información 2</a></li>
-                <li><a href="#info3">Información 3</a></li>
-                <li><a href="#info4">Información 4</a></li>
-            </ul>
-        </nav>
-
-        <div id="info-content">
-            <article id="info1">
-                <h3>Información 1</h3>
-                <p>Detalles sobre la información 1...</p>
-            </article>
-            <article id="info2">
-                <h3>Información 2</h3>
-                <p>Detalles sobre la información 2...</p>
-            </article>
-            <article id="info3">
-                <h3>Información 3</h3>
-                <p>Detalles sobre la información 3...</p>
-            </article>
-            <article id="info4">
-                <h3>Información 4</h3>
-                <p>Detalles sobre la información 4...</p>
-            </article>
-        </div>
-    </section>
+    <section class="slider-container">
+        <div class="slider-images">
+          <div class="slider-img">
+            <img src="../assets/img/deadlift.jpg" alt="1" />
+            <h1>ENTRENAMIETNOS</h1>
+            <div class="slider-details">
+              <h2>Crea entreamientos unicos adaptados a tu</h2>
+              <p>web3 Developer</p>
+            </div>
+          </div>
+          <div class="slider-img">
+            <img src="../assets/img/bg5.jpg" alt="2" />
+            <h1>AGENDA</h1>
+            <div class="slider-details">
+              <h2></h2>
+              <p>wordpress Developer</p>
+            </div>
+          </div>
+          <div class="slider-img">
+            <img src="../assets/img/deadlift.jpg" alt="3" />
+            <h1>STATS</h1>
+            <div class="slider-details">
+              <h2>AGENDA</h2>
+              <p>java Developer</p>
+            </div>
+          </div>
+          <div class="slider-img active">
+            <img src="../assets/img/bg5.jpg" alt="4" />
+            <h1>DIETA</h1>
+            <div class="slider-details">
+              <h2>DIETA</h2>
+              <p>web Developer</p>
+            </div>
+          </div>
+          <div class="slider-img">
+            <img src="../assets/img/deadlift.jpg" alt="5" />
+            <h1>ELO</h1>
+            <div class="slider-details">
+              <h2>ELO</h2>
+              <p>php Developer</p>
+            </div>
+          </div>
+      </section>
 
     <!-- Grid de productos estilo "bento" -->
     <section id="product-grid">
-        <h2>Nuestros Productos</h2>
-        <div class="bento-grid">
-            <div class="product-item">
-                <img src="product1.jpg" alt="Producto 1">
-                <h4>Producto 1</h4>
-                <p>Descripción del producto 1</p>
+        <div class="grid-container">
+            <div class="grid-item one">
+                <p>Microphone Techniques</p>
+                <span class="plus">+</span>
             </div>
-            <div class="product-item">
-                <img src="product2.jpg" alt="Producto 2">
-                <h4>Producto 2</h4>
-                <p>Descripción del producto 2</p>
+            <div class="grid-item two">
+                <p>Mixing basics & advanced</p>
+                <span class="plus">+</span>
             </div>
-            <div class="product-item">
-                <img src="product3.jpg" alt="Producto 3">
-                <h4>Producto 3</h4>
-                <p>Descripción del producto 3</p>
+            <div class="grid-item three">
+                <p>Full band recording</p>
+                <span class="plus">+</span>
             </div>
-            <!-- Agrega más productos según sea necesario -->
+            <div class="grid-item four">
+                <p>Headphone mix</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item five">
+                <p>Microphone Techniques</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item six">
+                <img src="dj.png" alt="DJ">
+                <p>Micing drums</p>
+                <span class="plus">+</span>
+            </div>
         </div>
-    </section>
-
-    <!-- Sección de actividades -->
-    <section id="activities">
-        <h2>Nuestras Actividades</h2>
-
-        <article class="activity">
-            <aside class="activity-image">
-                <img src="boxeo.jpg" alt="Boxeo">
-            </aside>
-            <div class="activity-text">
-                <h3>Boxeo</h3>
-                <p>Descripción de la actividad de boxeo...</p>
-            </div>
-        </article>
-
-        <article class="activity">
-            <aside class="activity-image">
-                <img src="running.jpg" alt="Running">
-            </aside>
-            <div class="activity-text">
-                <h3>Running</h3>
-                <p>Descripción de la actividad de running...</p>
-            </div>
-        </article>
-
-        <!-- Agrega más actividades según sea necesario -->
     </section>
 
     <dialog id="modal" style="display: none;"></dialog>
@@ -371,8 +316,5 @@
     </footer>
 
 
-   
-
-    <script src="../controladores/landingV.js" defer></script> <!-- Enlace a tu archivo JavaScript -->
 </body>
 </html>

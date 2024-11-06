@@ -5,55 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Landing Page</title>
-    <link rel="icon" href="../assets/img/BITnessGYM_mini.png" type="image/png">
+    <link rel="icon" href="../../assets/img/BITnessGYM_mini.png" type="image/png">
 
     <!-- Enlaces unicos-->
+    <script src="landingC.js" defer></script> 
     <script src="landingV.js" defer></script> 
-    <link rel="stylesheet" href="landing.css">
-    <script type="module" src="animationsV.js"></script>
+    <script src="../Navbar/navbarV.js" defer></script> 
+    <script src="../../Users/formularioV.js" defer></script>
+
+    <link rel="stylesheet" href="landing.css">  
+
     <!-- Enlaces globales-->
-    <link rel="stylesheet" href="../estilos/global.css">
-    <script src="../config/jquery-3.7.1.min.js"></script> 
+    <link rel="stylesheet" href="../../config/global.css">
+    <script src="../../config/jquery-3.7.1.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navbar-left">
-          <ul>
-            <li>
-              <a href="landingV.html" class="navbar-links">
-                <img src="../assets/img/BITnessGYM_isologo.png" alt="Logo" class="logo" />
-              </a>
-            </li>
-            <li><a class="navbar-links" href="actividadesV.html">Actividades</a></li>
-            <li><a class="navbar-links" href="entrenadoresV.html">Entrenadores</a></li>
-            <li><a class="navbar-links" href="carritoV.html">Carrito</a></li>
-          </ul>
-        </div>
-        <div class="navbar-right">
-          <button id="btn-registro" class="nav-button">START!</button>
-        </div>
-      </nav>
-      
+
+<div id="navbar-container"></div>
+    
+<!-- Modal para registro -->
+    <div id="modal" class="modal">
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+
 
 <section class="hero">
 
     <header class="title">
-        <h1>SUBE TU NIVEL</h1>
-        <h2>CON NOSOTROS</h2>
+        <img src="../../assets/img/GAMEON.png" >
+        <h1 class="hero-texto">LLEVA TU <br>FUERZA <BR>AL SIGUIENTE <br> NIVEL</h1>
     </header>
 
-     <!-- Modal para registro -->
-     <div id="modal" class="modal">
-        <div class="modal-content">
-            <span id="closeButton" class="close">&times;</span>
-            <div id="modalBody"></div>
-        </div>
-    </div>
 
-    <img class="img-centro" src="../assets/img/runing.png">
+
+    
+
+    <img class="img-centro" src="../../assets/img/man_deadlift_man.png">
+    <img class="img-centro-ventana" src="../../assets/img/man_deadlift_win.png">
+    <img class="img-centro-ventana-fondo" src="../../assets/img/ventana_background.png">
 
        <!-- ventanas del laning con actividades WINDOWS  -->
     <div class="window-container">
@@ -61,7 +53,7 @@
                 <div class="card-win">
                     <div class="header-win">Basics</div>
                     <div class="content-win">
-                        <img src="../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
                         <div class="window-text">
                             <span>Texto a la derecha</span>
                         </div>
@@ -75,7 +67,7 @@
                 <div class="card-win">
                     <div class="header-win">Basics</div>
                     <div class="content-win">
-                        <img src="../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
                         <div class="window-text">
                             <span>Texto a la derecha</span>
                         </div>
@@ -89,7 +81,7 @@
                 <div class="card-win">
                     <div class="header-win">Basics</div>
                     <div class="content-win">
-                        <img src="../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
                         <div class="window-text">
                             <span>Texto a la derecha</span>
                         </div>
@@ -103,7 +95,7 @@
                 <div class="card-win">
                     <div class="header-win">Basics</div>
                     <div class="content-win">
-                        <img src="../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
                         <div class="window-text">
                             <span>Texto a la derecha</span>
                         </div>
@@ -117,7 +109,7 @@
                 <div class="card-win">
                     <div class="header-win">Basics</div>
                     <div class="content-win">
-                        <img src="../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
                         <div class="window-text">
                             <span>Texto a la derecha</span>
                         </div>
@@ -128,34 +120,35 @@
                 </div>
             </div>
     </div>
+</section>
 
     <!-- cinta horizontal señalando las suscripciones  SUBSCARDS-->
     <article class="marquee-container-real">
     <div class="marquee-container">
         <div class="marquee-content">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
         </div>
         <div class="marquee-content"> <!-- Duplicamos el contenido para el efecto infinito -->
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
-            <img src="../assets/img/arrow.png.png">
+            <img src="../../assets/img/arrow.png.png">
             <span>SUSCRIPCIONES $$$</span>
         </div>
     </div>
@@ -167,65 +160,74 @@
 
     <!-- Sección de suscripciones  SUBSCARDS-->
     <section class="subs">
+
             <div class="details">
                 <h2> <SPAn><</SPAn>ELIJE TU SUSCRIPCION <SPAn>></SPAn> </h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum rem delectus nulla eos asperiores molestiae sint fugit accusamus.</p>
             </div>
         
             <div class="grid">
-                <div class="card">
-                    <div class="header">Basics</div>
-                    <div class="content">
-                        <h2>$600</h2>
-                        <p>per month</p>
-                        <div class="details">
-                            <p><strong>1 CPU</strong></p>
-                            <p>500 GB</p>
-                            <p>2 users allowed</p>
-                            <p>Additional feature</p>
-                            <div class="footer">
-                                <span>Beginner Friendly</span>
-                                <span>Learn more</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         
-                <div class="card">
-                    <div class="header">Standard</div>
-                    <div class="content">
-                        <h2>$1200</h2>
-                        <p>per month</p>
-                        <div class="details">
-                            <p><strong>2 CPUs</strong></p>
-                            <p>1 TB</p>
-                            <p>5 users allowed</p>
-                            <p>Additional feature</p>
-                            <div class="footer">
-                                <span>Intermediate Level</span>
-                                <span>Learn more</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Tarjeta 1 -->
+        <div class="card" >
+            <div class="card-header" id="categoria1" >ESTÁNDAR</div>
+            <div class="card-body">
+                <h2><span>USD$</span><span id="precioMensual1" type="number">100</span></h2>
+                <p>per month</p>
+                <div class="divider"></div>
+                <h2><span>USD$</span><span id="precioAnual1"  type="number">100</span></h2>
+                <p>per year</p>
+                <div class="divider"></div>
+                <p id="descripcion1">1 actividades pagadas</p>
+            </div>
+            <div class="card-footer">
+             <button class="comprarSubBtn">
+                <button class="comprarSubBtn">Ir a Suscribirse</button>
+            </button>
+            </div>
+        </div>
+
+
+        <!-- Tarjeta 2 -->
+        <div class="card">
+            <div class="card-header" id="categoria2">AVANZADA</div>
+            <div class="card-body">
+                <h2><span>USD$</span><span id="precioMensual2" type="number">100</span></h2>
+                <p>per month</p>
+                <div class="divider"></div>
+                <h2><span>USD$</span><span id="precioAnual2" type="number">100</span></h2>
+                <p>per year</p>
+                <div class="divider"></div>
+                <p id="descripcion2">3 actividades pagadas</p>
+            </div>
+            <div class="card-footer">
+                <button class="guardar" data-carta="2">
+                    <a  href="../../Dashboards/Cliente/Suscripcion/suscripcionV.html">Ir a Suscribirse</a>
+                </button>
+            </div>
+        </div>
         
-                <div class="card">
-                    <div class="header">Pro</div>
-                    <div class="content">
-                        <h2>$1800</h2>
-                        <p>per month</p>
-                        <div class="details">
-                            <p><strong>4 CPUs</strong></p>
-                            <p>2 TB</p>
-                            <p>10 users allowed</p>
-                            <p>Additional feature</p>
-                            <div class="footer">
-                                <span>Advanced Level</span>
-                                <span>Learn more</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+        <!-- Tarjeta 3 -->
+        <div class="card">
+            <div class="card-header" id="categoria3" contenteditable="true">HARDCORE</div>
+            <div class="card-body">
+                <h2><span>USD$</span><span id="precioMensual3" type="number">100</span></h2>
+                <p>per month</p>
+                <div class="divider"></div>
+                <h2><span>USD$</span><span id="precioAnual3" type="number">100</span></h2>
+                <p>per year</p>
+                <div class="divider"></div>
+                <p id="descripcion3">acceso a todas las máquinas</p>
+            </div>
+            <div class="card-footer">
+                <button class="guardar" data-carta="3">
+                    <a  href="../../Dashboards/Cliente/Suscripcion/suscripcionV.html">Ir a Suscribirse</a>
+                </button>
+            </div>
+        </div>
+        
+
             </div>
     </section>       
         
@@ -235,7 +237,7 @@
     <section class="slider-container">
         <div class="slider-images">
           <div class="slider-img">
-            <img src="../assets/img/deadlift.jpg" alt="1" />
+            <img src="../../assets/img/deadlift.jpg" alt="1" />
             <h1>ENTRENAMIETNOS</h1>
             <div class="slider-details">
               <h2>Crea entreamientos unicos adaptados a tu</h2>
@@ -243,7 +245,7 @@
             </div>
           </div>
           <div class="slider-img">
-            <img src="../assets/img/bg5.jpg" alt="2" />
+            <img src="../../assets/img/bg5.jpg" alt="2" />
             <h1>AGENDA</h1>
             <div class="slider-details">
               <h2></h2>
@@ -251,7 +253,7 @@
             </div>
           </div>
           <div class="slider-img">
-            <img src="../assets/img/deadlift.jpg" alt="3" />
+            <img src="../../assets/img/deadlift.jpg" alt="3" />
             <h1>STATS</h1>
             <div class="slider-details">
               <h2>AGENDA</h2>
@@ -259,7 +261,7 @@
             </div>
           </div>
           <div class="slider-img active">
-            <img src="../assets/img/bg5.jpg" alt="4" />
+            <img src="../../assets/img/bg5.jpg" alt="4" />
             <h1>DIETA</h1>
             <div class="slider-details">
               <h2>DIETA</h2>
@@ -267,7 +269,7 @@
             </div>
           </div>
           <div class="slider-img">
-            <img src="../assets/img/deadlift.jpg" alt="5" />
+            <img src="../../assets/img/deadlift.jpg" alt="5" />
             <h1>ELO</h1>
             <div class="slider-details">
               <h2>ELO</h2>
@@ -276,6 +278,8 @@
           </div>
       </section>
 
+
+      
     <!-- Grid de productos estilo "bento" -->
     <section id="product-grid">
         <div class="grid-container">
@@ -306,15 +310,11 @@
             </div>
         </div>
     </section>
-
-    <dialog id="modal" style="display: none;"></dialog>
-        <div id="modal-content"></div> <!-- Aquí se insertará el contenido de registroV.php -->
-    </dialog>
     
     <footer>
         <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.</p>
     </footer>
 
-
+    
 </body>
 </html>

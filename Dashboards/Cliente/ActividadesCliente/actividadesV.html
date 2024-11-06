@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario de Actividades</title>
+  <link rel="stylesheet" href="actividades.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="actividadesV.js"></script>
+</head>
+<body>
+  <h1>Calendario de Actividades</h1>
+
+  <!-- Botones de Actividades -->
+  <div id="taskButtons">
+    <button class="task-btn" data-task="gimnasio" style="background-color: #FF6F61;">🏋️ Gimnasio</button>
+    <button class="task-btn" data-task="estudio" style="background-color: #FFD700;">📚 Estudio</button>
+    <button class="task-btn" data-task="television" style="background-color: #7FFFD4;">📺 Televisión</button>
+    <button class="task-btn" data-task="amigos" style="background-color: #9370DB;">👥 Amigos</button>
+    <button class="task-btn" data-task="trabajo" style="background-color: #4682B4;">💼 Trabajo</button>
+    <button id="delete" style="background-color: #FF0000;">❌ Eliminar</button>
+  </div>
+
+  <!-- Tabla de Horarios -->
+  <div id="schedule">
+    <div class="column time-column">
+      <!-- Horas desde 6am hasta 10pm -->
+      <div class="time-slot">6:00 AM</div>
+      <div class="time-slot">7:00 AM</div>
+      <div class="time-slot">8:00 AM</div>
+      <div class="time-slot">9:00 AM</div>
+      <div class="time-slot">10:00 AM</div>
+      <div class="time-slot">11:00 AM</div>
+      <div class="time-slot">12:00 PM</div>
+      <div class="time-slot">1:00 PM</div>
+      <div class="time-slot">2:00 PM</div>
+      <div class="time-slot">3:00 PM</div>
+      <div class="time-slot">4:00 PM</div>
+      <div class="time-slot">5:00 PM</div>
+      <div class="time-slot">6:00 PM</div>
+      <div class="time-slot">7:00 PM</div>
+      <div class="time-slot">8:00 PM</div>
+      <div class="time-slot">9:00 PM</div>
+      <div class="time-slot">10:00 PM</div>
+    </div>
+
+    <!-- Columnas de los días -->
+    <div class="column day-column" data-day="lunes"></div>
+    <div class="column day-column" data-day="martes"></div>
+    <div class="column day-column" data-day="miércoles"></div>
+    <div class="column day-column" data-day="jueves"></div>
+    <div class="column day-column" data-day="viernes"></div>
+  </div>
+
+  <!-- Modal para horas específicas -->
+  <div id="timeModal" class="modal">
+    <div class="modal-content">
+      <h3>Ingrese la hora de inicio y fin</h3>
+      <label for="startTime">Inicio:</label>
+      <input type="time" id="startTime">
+      <label for="endTime">Fin:</label>
+      <input type="time" id="endTime">
+      <button id="saveTime">Guardar</button>
+      <button id="closeModal">Cancelar</button>
+    </div>
+  </div>
+</body>
+</html>

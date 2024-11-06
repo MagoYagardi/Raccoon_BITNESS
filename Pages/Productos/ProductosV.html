@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Actividades</title>
+    <link rel="icon" href="../../assets/img/BITnessGYM_mini.png" type="image/png">
+
+    <!-- Enlaces unicos-->
+    <script src="ProductosV.js" ></script>
+    <script src="../Navbar/navbarV.js" defer></script>
+    <script src="../../Users/formularioV.js" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="Productos.css">
+  
+
+    <!-- Enlaces globales-->
+    <link rel="stylesheet" href="../../config/global.css">
+    <script src="../../config/jquery-3.7.1.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    
+  
+</head>
+<body>
+
+  <div id="navbar-container"></div>
+    
+<!-- Modal para registro -->
+    <div id="modal" class="modal">
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+
+
+
+
+<section class="hero">
+
+    <header class="title">
+        <img src="../../assets/img/GAMEON.png" >
+        <h1 class="hero-texto">LLEVA TU <br>FUERZA <BR>AL SIGUIENTE <br> NIVEL</h1>
+    </header>
+
+
+
+    
+
+    <img class="img-centro" src="../../assets/img/man_deadlift_man.png">
+    <img class="img-centro-ventana" src="../../assets/img/man_deadlift_win.png">
+    <img class="img-centro-ventana-fondo" src="../../assets/img/ventana_background.png">
+
+       <!-- ventanas del laning con actividades WINDOWS  -->
+    <div class="window-container">
+            <div class="window">
+                <div class="card-win">
+                    <div class="header-win">Basics</div>
+                    <div class="content-win">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <div class="window-text">
+                            <span>Texto a la derecha</span>
+                        </div>
+                    </div>
+                    <div class="footer-win">
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div class="window">
+                <div class="card-win">
+                    <div class="header-win">Basics</div>
+                    <div class="content-win">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <div class="window-text">
+                            <span>Texto a la derecha</span>
+                        </div>
+                    </div>
+                    <div class="footer-win">
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div class="window">
+                <div class="card-win">
+                    <div class="header-win">Basics</div>
+                    <div class="content-win">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <div class="window-text">
+                            <span>Texto a la derecha</span>
+                        </div>
+                    </div>
+                    <div class="footer-win">
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div class="window">
+                <div class="card-win">
+                    <div class="header-win">Basics</div>
+                    <div class="content-win">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <div class="window-text">
+                            <span>Texto a la derecha</span>
+                        </div>
+                    </div>
+                    <div class="footer-win">
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div class="window">
+                <div class="card-win">
+                    <div class="header-win">Basics</div>
+                    <div class="content-win">
+                        <img src="../../assets/img/deadlift.jpg" alt="Sample Image" class="window-img">
+                        <div class="window-text">
+                            <span>Texto a la derecha</span>
+                        </div>
+                    </div>
+                    <div class="footer-win">
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- cinta horizontal señalando las suscripciones  SUBSCARDS-->
+    <article class="marquee-container-real">
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+        </div>
+        <div class="marquee-content"> <!-- Duplicamos el contenido para el efecto infinito -->
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+            <img src="../../assets/img/arrow.png.png">
+            <span>SUSCRIPCIONES $$$</span>
+        </div>
+    </div>
+    </article>
+
+    
+</section>
+
+
+    <!-- Sección de suscripciones  SUBSCARDS-->
+    <section class="subs">
+
+            <div class="details">
+                <h2> <SPAn><</SPAn>ELIJE TU SUSCRIPCION <SPAn>></SPAn> </h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum rem delectus nulla eos asperiores molestiae sint fugit accusamus.</p>
+            </div>
+        
+            <div class="grid">
+        
+                <!-- Tarjeta 1 -->
+        <div class="card" >
+            <div class="card-header" id="categoria1" >ESTÁNDAR</div>
+            <div class="card-body">
+                <h2><span>USD$</span><span id="precioMensual1" type="number">100</span></h2>
+                <p>per month</p>
+                <div class="divider"></div>
+                <h2><span>USD$</span><span id="precioAnual1"  type="number">100</span></h2>
+                <p>per year</p>
+                <div class="divider"></div>
+                <p id="descripcion1">1 actividades pagadas</p>
+            </div>
+            <div class="card-footer">
+             <button class="comprarSubBtn">
+                <button class="comprarSubBtn">Ir a Suscribirse</button>
+            </button>
+            </div>
+        </div>
+
+
+        <!-- Tarjeta 2 -->
+        <div class="card">
+            <div class="card-header" id="categoria2">AVANZADA</div>
+            <div class="card-body">
+                <h2><span>USD$</span><span id="precioMensual2" type="number">100</span></h2>
+                <p>per month</p>
+                <div class="divider"></div>
+                <h2><span>USD$</span><span id="precioAnual2" type="number">100</span></h2>
+                <p>per year</p>
+                <div class="divider"></div>
+                <p id="descripcion2">3 actividades pagadas</p>
+            </div>
+            <div class="card-footer">
+                <button class="guardar" data-carta="2">
+                    <a  href="../../Dashboards/Cliente/Suscripcion/suscripcionV.html">Ir a Suscribirse</a>
+                </button>
+            </div>
+        </div>
+        
+
+        <!-- Tarjeta 3 -->
+        <div class="card">
+            <div class="card-header" id="categoria3" contenteditable="true">HARDCORE</div>
+            <div class="card-body">
+                <h2><span>USD$</span><span id="precioMensual3" type="number">100</span></h2>
+                <p>per month</p>
+                <div class="divider"></div>
+                <h2><span>USD$</span><span id="precioAnual3" type="number">100</span></h2>
+                <p>per year</p>
+                <div class="divider"></div>
+                <p id="descripcion3">acceso a todas las máquinas</p>
+            </div>
+            <div class="card-footer">
+                <button class="guardar" data-carta="3">
+                    <a  href="../../Dashboards/Cliente/Suscripcion/suscripcionV.html">Ir a Suscribirse</a>
+                </button>
+            </div>
+        </div>
+        
+
+            </div>
+    </section>       
+        
+
+    <!-- seccion de explicacio de servicos SLIDESHOWS -->
+
+    <section class="slider-container">
+        <div class="slider-images">
+          <div class="slider-img">
+            <img src="../../assets/img/deadlift.jpg" alt="1" />
+            <h1>ENTRENAMIETNOS</h1>
+            <div class="slider-details">
+              <h2>Crea entreamientos unicos adaptados a tu</h2>
+              <p>web3 Developer</p>
+            </div>
+          </div>
+          <div class="slider-img">
+            <img src="../../assets/img/bg5.jpg" alt="2" />
+            <h1>AGENDA</h1>
+            <div class="slider-details">
+              <h2></h2>
+              <p>wordpress Developer</p>
+            </div>
+          </div>
+          <div class="slider-img">
+            <img src="../../assets/img/deadlift.jpg" alt="3" />
+            <h1>STATS</h1>
+            <div class="slider-details">
+              <h2>AGENDA</h2>
+              <p>java Developer</p>
+            </div>
+          </div>
+          <div class="slider-img active">
+            <img src="../../assets/img/bg5.jpg" alt="4" />
+            <h1>DIETA</h1>
+            <div class="slider-details">
+              <h2>DIETA</h2>
+              <p>web Developer</p>
+            </div>
+          </div>
+          <div class="slider-img">
+            <img src="../../assets/img/deadlift.jpg" alt="5" />
+            <h1>ELO</h1>
+            <div class="slider-details">
+              <h2>ELO</h2>
+              <p>php Developer</p>
+            </div>
+          </div>
+      </section>
+
+
+      
+    <!-- Grid de productos estilo "bento" -->
+    <section id="product-grid">
+        <div class="grid-container">
+            <div class="grid-item one">
+                <p>Microphone Techniques</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item two">
+                <p>Mixing basics & advanced</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item three">
+                <p>Full band recording</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item four">
+                <p>Headphone mix</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item five">
+                <p>Microphone Techniques</p>
+                <span class="plus">+</span>
+            </div>
+            <div class="grid-item six">
+                <img src="dj.png" alt="DJ">
+                <p>Micing drums</p>
+                <span class="plus">+</span>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.</p>
+    </footer>
+
+    
+
+
+
+</body>
+</html>

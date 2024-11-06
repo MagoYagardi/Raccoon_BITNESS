@@ -1,0 +1,284 @@
+<?php/*
+session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: ../vistas/landingV.html");
+    exit();
+}*/
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Suscripciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="../estilos/admin1.css">
+    <style>
+        /* Estilos para el sidebar */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #3E0D56;
+            color: #FFD500;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #FFD500;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #26141D;
+            color: #FFD500;
+        }
+
+        .welcome-background {
+            margin-left: 250px;
+            padding: 20px;
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        .welcome-container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: white;
+            border: 6px solid #7E70C2;
+        }
+
+        .modal-body label {
+            color: #000000; /* Cambia los títulos de los campos (labels) a negro */
+        }
+
+        h1 {
+            color: #3E0D56;
+        }
+
+        table {
+            width: 100%;
+            background-color: black;
+        }
+
+        thead {
+            border: 1px solid black;
+            border-radius: 3px;
+        }
+
+        th {
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        td {
+            background-color: white;
+            text-align: center;
+        }
+
+        .modal-header {
+            background-color: #B44DF2;
+            color: #FFFFFF;
+        }
+
+        .modal-title {
+            color: #000000 !important;
+        }
+
+        h5 {
+            color: #000000;
+        }
+
+        .modal-body {
+            background-color: #F2F2F2;
+        }
+
+
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin: auto;
+        }
+
+        .container h1{
+            margin: auto;
+            position: absolute;
+            margin-left: 60px;
+            
+        }
+
+        .card {
+            margin-top: 100px;
+            width: 300px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .card-header {
+            background-color: #7E70C2;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-body h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .card-body p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .divider {
+            width: 80%;
+            height: 1px;
+            background-color: #ddd;
+            margin: 10px auto;
+        }
+
+        .card-footer {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .card-footer button {
+            color: #7E70C2;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+        }
+
+        .card-footer button:hover {
+            text-decoration: underline;
+        }
+
+        
+
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="admin.php">Inicio</a>
+        <a href="gestion_usuarios.php">Gestión de Usuarios</a>
+        <a href="gestion_productos.php">Gestión de Productos</a>
+        <a href="gestion_suscripciones.html">Gestión de Suscripciones</a>
+        <a href="gestion_sucursales.php">Gestión de Sucursales</a>
+        <a href="gestion_clases.php">Gestión de Clases</a>
+        <a href="gestion_facturacion.php">Ver Facturación</a>
+        <a href="../modelos/logout.php" class="btn btn-danger">Cerrar Sesión</a>
+    </div>
+
+    <section class="welcome-background">
+        <div class="welcome-container">
+            <h1>Gestión de Suscripciones</h1>
+            <table class="table table-bordered mt-4" id="subTable">
+                <thead>
+                    <tr>
+                        <th>ID Suscripcion</th>
+                        <th>ID Usuario</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="subList">
+                    <!-- Las suscripciones se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <br>
+        
+        <div class="container">
+            <h1>Editar Planes Suscripciones</h1>
+            <!-- Tarjeta 1 -->
+            <div class="card" data-tuplas="1,2">
+                <div class="card-header" contenteditable="true" id="categoria1">ESTÁNDAR</div>
+                <div class="card-body">
+                    <h2><span contenteditable="false">USD$</span><span id="precioMensual1" contenteditable="true">100</span></h2>
+                    <p>per month</p>
+                    <div class="divider"></div>
+                    <h2><span contenteditable="false">USD$</span><span id="precioAnual1" contenteditable="true">1200</span></h2>
+                    <p>per year</p>
+                    <div class="divider"></div>
+                    <p contenteditable="true" id="descripcion1">1 actividad pagada</p>
+                </div>
+                <div class="card-footer">
+                    <button class="guardar" data-card="1">Guardar Cambios</button>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="card" data-tuplas="3,4">
+                <div class="card-header" contenteditable="true" id="categoria2">AVANZADA</div>
+                <div class="card-body">
+                    <h2><span contenteditable="false">USD$</span><span id="precioMensual2" contenteditable="true">200</span></h2>
+                    <p>per month</p>
+                    <div class="divider"></div>
+                    <h2><span contenteditable="false">USD$</span><span id="precioAnual2" contenteditable="true">2400</span></h2>
+                    <p>per year</p>
+                    <div class="divider"></div>
+                    <p contenteditable="true" id="descripcion2">3 actividades pagadas</p>
+                </div>
+                <div class="card-footer">
+                    <button class="guardar" data-card="2">Guardar Cambios</button>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="card" data-tuplas="5,6">
+                <div class="card-header" contenteditable="true" id="categoria3">HARDCORE</div>
+                <div class="card-body">
+                    <h2><span contenteditable="false">USD$</span><span id="precioMensual3" contenteditable="true">300</span></h2>
+                    <p>per month</p>
+                    <div class="divider"></div>
+                    <h2><span contenteditable="false">USD$</span><span id="precioAnual3" contenteditable="true">3600</span></h2>
+                    <p>per year</p>
+                    <div class="divider"></div>
+                    <p contenteditable="true" id="descripcion3">Acceso a todas las máquinas</p>
+                </div>
+                <div class="card-footer">
+                    <button class="guardar" data-card="3">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="../Controladores/crud_suscripcion.js"></script>
+    <script src="../Controladores/crud_paga.js"></script>
+</body>
+</html>

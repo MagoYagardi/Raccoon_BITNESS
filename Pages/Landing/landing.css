@@ -1,5 +1,5 @@
 body { 
-  background-image: url(../assets/img/background-landing.jpg); /* Corregir la ruta de la imagen */
+  background-image: url(../../assets/img/background-landing.jpg); /* Corregir la ruta de la imagen */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -10,139 +10,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Estiliza la barra de desplazamiento */
-::-webkit-scrollbar {
-  width: 20px; /* Ancho de la barra de desplazamiento */
-}
-
-/* Estiliza el thumb (la parte que se mueve) */
-::-webkit-scrollbar-thumb {
-  background-color: #d1a8ff; /* Cambia el color cuando se hace hover */
-  border: 3px solid #000000;
-  border-radius: 3px; /* Bordes redondeados */
-}
-
-/* Estiliza el track (la pista por donde se mueve el thumb) */
-::-webkit-scrollbar-track {
-  background-color: #ffffff; /* Color del fondo del scroll */
-  border-left:3px solid #000000;
-  border-right:3px solid #000000;
-}
-
-/* Estilo para cuando el thumb es "hovered" (al pasar el cursor por encima) */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #000000; /* Cambia el color cuando se hace hover */
-
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent; /* Color de fondo del navbar */
-  padding: 10px 20px;
-  padding-top: 30px;
-  position: sticky;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  color: white;
-  height: 5vh;
-  border-bottom: 2px solid transparent;
-
-  transition: background-color 0.4s ease-in-out;
-}
-
-/* scrolled navbar*/
-
-.scrolled {
-  background-color: white;
-  text-decoration: none;
-  border-bottom: 3px solid #200101;
-}
-
-
-.navbar-left {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-left ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-left li {
-  margin: 1px 20px;
-  margin-top: 60px;
-}
-
-/* Estilo general para los enlaces del navbar */
-.navbar-links {
-  position: relative; /* Permite el uso de pseudoelementos */
-  display: inline-block; /* Asegura que el enlace sea un bloque en línea para aplicar padding y margin */
-  text-decoration: none; /* Elimina el subrayado predeterminado */
-  color: white; /* Color de texto por defecto */
-  transition: color 0.3s ease; /* Transición suave para el cambio de color del texto */
-}
-
-/*hover de links navbar sin scroll*/
-.navbar-links:hover {
-  color: #1f7fdd; 
-}
-
-/*estilos de links con scroll*/
-.navbar-links.scrolled {
-  background: transparent;
-  border-bottom: none;
-  color: black;
-}
-
-/*hover de links navbar con scroll*/
-.navbar-links.scrolled:hover {
-  color: #1f7fdd;
-}
-
-
-/*estilo de link actual visitado */
-.navbar-links.active {
-  color: #a31010; /* Color del texto cuando el enlace está activo */
-}
-
-
-.logo {
-  width: 200px; /* Ancho fijo para el logo */
-  height: auto; /* Mantiene la proporción del logo */
-  position: relative;
-  top: -10px;
-}
-
-.navbar-right {
-  display: flex;
-  align-items: center;
-  margin-left: 30px;
-  margin-right: 50px;
-}
-
-.nav-button {
-  font-family: DIGITAL;
-  background-color: #d1a8ff;
-  border: 2px solid black;
-  border-radius: 6px;
-  padding: 10px 50px;
-  color: black;
-  font-size: 16px;
-  margin-top: -15px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 5px 5px black; /* Sombra inicial que simula estar flotando */
-}
-.nav-button:hover {
-  box-shadow: none; /* Elimina la sombra cuando se presiona */
-  transform: translate(4px, 4px); /* Simula que el botón se "presiona" */
-}
-
+/*prueba animaciones*/
 @keyframes anim {
   0% {
     transform: translateX(0);
@@ -154,59 +22,104 @@ body {
     transform: translateX(0);
   }
 }
-
-.button-anim {
-  animation: anim 1s ease-in-out infinite;
-}
-
 /*HERO PAGE*/
 
-
+/* Sección Hero que cubre más del viewport */
 .hero {
+  height: 150vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
-  width: 100vw;
+  align-items: center;
+  background-image: url(../../assets/img/hero_background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Fondo fijo al hacer scroll */
   position: relative;
 }
 
+/* Contenedor del header escalable y bien posicionado */
 header {
-  margin-left: -600px;
-  padding: 20px;
-  font-family: SPORT;
-  font-size: 50px;
-  z-index: 1;
-  color: yellow;
-  padding-left: 1vw;
-}
-
-header h2 {
-  font-size: 50px;
-}
-
-.img-centro {
-  width: 600px;
-  height: auto;
   position: absolute;
-  z-index: 10;
-  inset: 0;
-  margin: auto;
-  margin-top: 120px;
+  top: 25%; /* Ajustamos la distancia desde arriba */
+  left: 18%; /* Centrado horizontalmente */
+  transform: translate(-50%, -50%) rotate(-8deg); /* Alineación y rotación */
+  font-family: 'SPORT';
+  text-align: center;
+  z-index: 4;
+  color: yellow;
 }
+
+/* Texto principal con borde y escalado proporcional */
+header h1 {
+  font-size: 3.5vw;
+  margin: 1vh 0;
+  border-radius: 80px;
+  transition: transform 0.1s ease;
+  filter: drop-shadow(
+    -4px 4px rgb(100, 0, 133)
+  );
+} 
+
+/* Imagen dentro del header con escalado proporcional */
+header img {
+  width: 20vw;
+  margin-top: 3vh;
+  transition: transform 0.2s ease;
+      filter: drop-shadow(
+      0 0 5px rgba(200, 0, 255, 0.608)
+    );
+}
+
+/* Imagen central, alineada al centro del viewport */
+.img-centro {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw; /* Escala proporcional al ancho de la ventana */
+  max-width: 35vw; /* Límite para pantallas grandes */
+  z-index: 2;
+}
+
+/* Imagen desplazada proporcionalmente en la ventana */
+.img-centro-ventana {
+  position: absolute;
+  top: 6%; /* Desplazada ligeramente hacia abajo */
+  left: 30%;
+  width: 70vw;
+  z-index: 3;
+  transition: transform 0.1s ease;
+}
+
+/* Imagen de fondo alineada y escalada al centro */
+.img-centro-ventana-fondo {
+  position: absolute;
+  top: 18%;
+  left: 34%;
+  width: 22vw;
+  z-index: 1;
+  transition: transform 0.2s ease;
+
+}
+
+/*VENTANAS DE LA HERO*/
 
 .window-container {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  position: relative;
-  overflow: visible;
-  margin-bottom: 550px;
+  z-index: 10;
+  position: absolute;
+  margin-bottom: 760px;
+  width:  600px;
+  height: 60vw;
+  left: 148vh;
+  margin-top: 60vw;
+  transition: transform 0.1s ease;
 }
 
 .window {
-  width: 300px;
   position: absolute;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
 }
 
 .window.closing {
@@ -245,26 +158,28 @@ header h2 {
 }
 
 .window:nth-child(2) {
-  top: 30px;
-  left: 30px;
+  top: 40px;
+  left: -40px;
 }
 
 .window:nth-child(3) {
-  top: 60px;
-  left: 60px;
+  top: 90px;
+  left: -80px;
 }
 
 .window:nth-child(4) {
-  top: 90px;
-  left: 90px;
+  top: 150px;
+  left: -140px;
 }
 
 .window:nth-child(5) {
-  top: 120px;
-  left: 120px;
+  top: 220px;
+  left: -220px;
 }
 
 .card-win {
+  width: 400px;
+  height: 250px;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -325,22 +240,22 @@ header h2 {
   background-color: #684A9E;
 }
 
-
 /*MARQUEE SCROLL*/
 
 .marquee-container {
+  
   position: absolute;
-  width: calc(50vw + 100vw );
+  width: calc(300vw);
   white-space: nowrap;
   overflow: hidden;
   background-color: rgb(209, 161, 236);
   height: 60px;
-  transform: rotate(8deg);  
-  z-index: 2;
+  transform: rotate(8deg) scale(0.7);
+  z-index: 10;
   inset: 0;
   margin-right: 0;
-  margin-left: -45vw;
-  margin-top: 450px;
+  margin-left: -76vw;
+  margin-top: 730px;
   border: 6px solid rgb(255, 255, 255);
   border-bottom: 6px solid rgb(0, 0, 0);
   margin-bottom: 0;
@@ -372,12 +287,6 @@ header h2 {
   margin-bottom: -11px;
 }
 
-
-
-
-
-
-
 /*SUBSCRIPCIONES*/
 
 .subs {
@@ -385,10 +294,10 @@ header h2 {
   background: white; 
   padding: 40px 20px;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
   clip-path: polygon(0 0, 100% 25%, 100% 100%, 0 100%);
   height: 800px;
-  margin-top: -120px;
+  margin-top: -500px;
   background-image: 
     linear-gradient(to right, rgba(86, 86, 86, 0.216) 3px, transparent 1px),
     linear-gradient(to bottom, rgba(86, 86, 86, 0.216) 3px, transparent 1px);
@@ -423,18 +332,15 @@ header h2 {
   flex-wrap: wrap;
 }
 
-
 .card {
-  position: center;
   width: 300px;
-  top: -100px;
+  max-height: 400px;
   border-radius: 8px;
-  overflow: hidden;
   border: 3px solid rgb(35, 35, 35);
-  box-shadow: -4px 4px 0px 0px rgb(255, 255, 255),
-    -0px 0px 0px 0px rgb(35, 35, 35); /* Borde alrededor de la sombra */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 2;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: white;
 }
 
 .card:hover {
@@ -442,73 +348,64 @@ header h2 {
   box-shadow: -8px 8px 0px 0px rgb(35, 35, 35);
 }
 
-.header {
+.card-header {
   background-color: #7E70C2;
-  color: #fff;
-  font-size: 14px;
-  text-transform:uppercase;
-  padding: 8px;
+  color: white;
+  text-align: center;
   font-weight: bold;
-  border-bottom: 3px solid rgb(35, 35, 35);
-}
-
-.content {
-  background-color: #fff;
-  padding: 16px;
-}
-
-.content h2 {
-  font-size: 20px;
+  padding: 15px;
+  font-size: 18px;
   margin: 0;
-  color: #2b2b3a;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
-.content p {
+.card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.card-body h2 {
+  margin: 10px 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.card-body p {
+  margin: 5px 0;
+  color: #666;
   font-size: 14px;
-  color: #555;
-  margin: 8px 0;
 }
 
-.details {
-  margin-top: 16px;
-  border-top: 1px dotted #ccc;
-  padding-top: 12px;
+.divider {
+  width: 80%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 10px auto;
 }
 
-.details p {
-  font-size: 14px;
-  margin: 4px 0;
-  color: #2b2b3a;
+.card-footer {
+  padding: 15px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .03);
+  border-top: 1px solid rgba(0, 0, 0, .125);
 }
 
-.footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
+.card-footer button {
+  color: #7E70C2;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  font-size: medium;
 }
 
-.footer span {
-  font-size: 14px;
-  color: #555;
+.card-footer button:hover {
+  text-decoration: underline;
 }
-
-.icon {
-  vertical-align: middle;
-  margin-right: 6px;
-}
-
-/* Placeholder styling for the icon */
-.icon {
-  width: 16px;
-  height: 16px;
-  background-color: #ccc;
-  display: inline-block;
-}
-
 
 /* SLIDESHOW FUNCIONES */
 
-.slider-container{
+.slider-container {
   margin: 10px auto;
   width: 100%;
   height: auto;
@@ -520,37 +417,42 @@ header h2 {
   align-items: center;
   justify-content: center;
   margin: 100px auto;
-  
 }
-.slider-images{
+
+.slider-images {
   display: flex;
   align-items: center;
   gap: 21px;
 }
-.slider-images img{
+
+.slider-images img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 6px;
 }
-.slider-img{
+
+.slider-img {
   width: 110px;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   transition: 0.7s ease;
 }
-.slider-images .slider-img:first-child, .slider-images .slider-img:last-child{
+
+.slider-images .slider-img:first-child, .slider-images .slider-img:last-child {
   height: 480px;
 }
-.slider-images .slider-img:nth-child(2), .slider-images .slider-img:nth-child(4){
+
+.slider-images .slider-img:nth-child(2), .slider-images .slider-img:nth-child(4) {
   height: 560px;
 }
-.slider-images .slider-img:nth-child(3){
+
+.slider-images .slider-img:nth-child(3) {
   height: 665px;
 }
 
-.slider-img h1{
+.slider-img h1 {
   font-family: "Jost", sans-serif;
   font-size: 40px;
   font-weight: 700;
@@ -563,48 +465,52 @@ header h2 {
   transform: rotate(270deg);
   transition: 0.7s ease;
 }
-.slider-details{
+
+.slider-details {
   position: absolute;
   bottom: 43px;
   left: 43px;
 }
-.slider-details h2{
+
+.slider-details h2 {
   font-family: "Jost", sans-serif;
   font-size: 26px;
   font-weight: 700;
   text-align: left;
   line-height: 44px;
-  text-align: left;
   color: #fff;
   text-transform: uppercase;
   transition: 0.7s ease;
   display: none;
 }
-.slider-details p{
+
+.slider-details p {
   font-family: "Jost", sans-serif;
   font-size: 20px;
   font-weight: 700;
   text-align: left;
   line-height: 33px;
-  text-align: left;
   color: #fff;
   text-transform: uppercase;
   transition: 0.7s ease;
   display: none;
 }
-.slider-img.active{
+
+.slider-img.active {
   width: 766px !important;
   height: 750px !important;
 }
-.slider-img.active h1{
+
+.slider-img.active h1 {
    display: none;
 }
-.slider-img.active .slider-details p, .slider-img.active .slider-details h2{
+
+.slider-img.active .slider-details p, .slider-img.active .slider-details h2 {
   display: block;
 }
 
+/* Grid de productos estilo "bento" */
 
-/*grid de productos bento*/
 #product-grid {
   background-color: #7E70C2;
   padding: 10px;
@@ -623,7 +529,6 @@ header h2 {
   justify-content: center;
   margin: 100px auto;
   border: #1e1e1e solid 6px;
-
 }
 
 .grid-item {  
@@ -680,7 +585,6 @@ header h2 {
   border: 6px solid #1e1e1e;
 }
 
-
 .plus {
   position: absolute;
   top: 10px;
@@ -690,54 +594,12 @@ header h2 {
   font-weight: bold;
 }
 
-/* MODAL REGISTRO */
-
-.modal {
-  display: none; /* Oculta el modal por defecto */
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0px;
-  width: 100vw;
-  height: 100vw;
-  overflow: scroll;
-  background-color: rgb(0,0,0); /* Fondo oscuro */
-  background-color: rgba(0,0,0,0.4); /* Fondo oscuro con opacidad */
-  justify-content: center;
-}
-
-.modal-content {
-  margin: auto;
-  background-color: transparent;
-  padding: 20px;
-  width: 80%; /* Ancho del modal */
-}
-
-.close {
-  position: absolute;
-  color: #aaa;
-  float: right;
-  font-size: 40px;
-  font-weight: bold;
-  background-color: #200101;
-  border: 3px solid white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  margin-left: 60vw;
- 
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-
 footer {
   padding: 20px;
   background-color: #f1f1f1;
   text-align: center;
   width: 100vw;
 }
+
+/* MODAL REGISTRO */
+

@@ -1,9 +1,14 @@
-//validaciones de registro
-
 $(document).ready(function() {
+
+    // Función para validar el nombre de usuario (entre 4 y 20 caracteres, solo letras, números y guiones bajos)
+    function isValidUsername(username) {
+        var usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;
+        return usernameRegex.test(username);
+    }
+
     // Función para validar el correo electrónico
     function isValidEmail(email) {
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         return emailRegex.test(email);
     }
 
@@ -13,60 +18,103 @@ $(document).ready(function() {
         return passwordRegex.test(password);
     }
 
-    // Validar correo electrónico
-    $('input[name="correo"]').on('focusout', function() {
-        var email = $(this).val();
-        if (!isValidEmail(email)) {
-            $(".EmailError").text("Por favor ingresa un correo válido.").css("visibility", "visible");
-            $(this).css("border-bottom", "2px solid red");
+    // Función para habilitar o deshabilitar el botón
+    function toggleSubmitButton(email, password) {
+        var isValidForm = 
+        isValidUsername($('input[name="nombre_usuario"]').val()) &&
+        isValidEmail($('input[id="Correo"]').val()) &&
+        isValidPassword($('#input-registro-pwrd').val()) &&
+        $('#input-registro-pwrd').val() === $('#ConfirmarC').val();
+                        
+        
+        if (isValidForm) {
+            $('#registrarse-boton').removeAttr('disabled');
+            $('#registrarse-boton').css('cursor', 'pointer');
+            $('#registrarse-boton').css('opacity', '1');
         } else {
-            $(".EmailError").css("visibility", "hidden");
-            $(this).css("border-bottom", "2px solid green");
+            $('#registrarse-boton').attr('disabled', 'disabled');
+            $('#registrarse-boton').css('cursor', 'not-allowed');
+            $('#registrarse-boton').css('opacity', '0.5');
         }
+    }
+
+    // Validar nombre de usuario
+    $('input[name="nombre_usuario"]').on('focusout input', function() {
+        var username = $(this).val();
+        if (!isValidUsername(username)) {
+            $(".NombreUserError").text("El nombre de usuario debe tener entre 4 y 20 caracteres y solo puede contener letras, números y guiones bajos.").css("visibility", "visible");
+            $(this).css("border", "2px solid red");
+        } else {
+            $(".NombreUserError").css("visibility", "hidden");
+            $(this).css("border", "2px solid green");
+        }
+        toggleSubmitButton();
+    });
+
+    // Validar correo electrónico
+    $('input[name="correo"]').on('focusout input', function () {
+        var email = $(this).val();
+        var errorElement = $(".EmailError");
+
+        if (!isValidEmail(email)) {
+            errorElement.text("Por favor ingresa un correo válido.").css("visibility", "visible");
+            $(this).css("border", "2px solid red");
+        } else {
+            errorElement.css("visibility", "hidden");
+            $(this).css("border", "2px solid green");
+        }
+
+        toggleSubmitButton();
     });
 
     // Validar contraseña
-    $('input[name="Password"]').on('focusout', function() {
+    $('input[name="contrasena"]').on('focusout input', function () {
         var password = $(this).val();
+        var errorElement = $(".PasswordError");
+
         if (password.length === 0) {
-            $(".PasswordError").text("La contraseña es requerida.").css("visibility", "visible");
-            $(this).css("border-bottom", "2px solid red");
+            errorElement.text("La contraseña es requerida.").css("visibility", "visible");
+            $(this).css("border", "2px solid red");
         } else if (!isValidPassword(password)) {
-            $(".PasswordError").text("La contraseña debe tener al menos 8 caracteres y un número.").css("visibility", "visible");
-            $(this).css("border-bottom", "2px solid red");
+            errorElement.text("La contraseña debe tener al menos 8 caracteres y un número.")
+                    .css("visibility", "visible");
+            $(this).css("border", "2px solid red");
         } else {
-            $(".PasswordError").css("visibility", "hidden");
-            $(this).css("border-bottom", "2px solid green");
+            errorElement.css("visibility", "hidden");
+            $(this).css("border", "2px solid green");
         }
+
+        toggleSubmitButton();
     });
+
 
     // Validar confirmación de contraseña
-    $('input[placeholder="Confirmar Contraseña"]').on('focusout', function() {
-        var confirmPassword = $(this).val();
-        var password = $('input[name="contrasena"]').val();
-        if (confirmPassword !== password) {
-            $(".ConfirmPasswordError").text("Las contraseñas no coinciden.").css("visibility", "visible");
-            $(this).css("border-bottom", "2px solid red");
+    $('#ConfirmarC, input[name="contrasena"]').on('focusout input', function () {
+        var confirmPassword = $('#ConfirmarC').val();
+        var password = $('#input-registro-pwrd').val();
+        var errorElement = $(".ConfirmPasswordError");
+
+        if (confirmPassword === password) {
+            errorElement.css("visibility", "hidden");
+            $('#ConfirmarC').css("border", "2px solid green");
         } else {
-            $(".ConfirmPasswordError").css("visibility", "hidden");
-            $(this).css("border-bottom", "2px solid green");
+            errorElement.text("Las contraseñas no coinciden.").css("visibility", "visible");
+            $('#ConfirmarC').css("border", "2px solid red");
         }
+
+        toggleSubmitButton();
     });
 
-    // Validar si los campos están vacíos al tabular fuera
-    $('input[name="nombre_usuario"]').on('focusout', function() {
-        if ($(this).val().length === 0) {
-            $(".NombreUserError").text("El nombre es requerido.").css("visibility", "visible");
-            $(this).css("border-bottom", "2px solid red");
-        } else {
-            $(".NombreUserError").css("visibility", "hidden");
-            $(this).css("border-bottom", "2px solid green");
-        }
-    });
 
     // Resetear el error cuando el usuario empieza a escribir
     $('input').on('input', function() {
         $(this).next('.error-message').css('visibility', 'hidden');
         $(this).css("border-bottom", "2px solid green");
     });
+
+    // Inicialmente deshabilitar el botón de registro
+    
+    $('#registrarse-boton').attr('disabled', 'disabled');
+    $('#registrarse-boton').css('cursor', 'not-allowed');
+    $('#registrarse-boton').css('opacity', '0.5');
 });

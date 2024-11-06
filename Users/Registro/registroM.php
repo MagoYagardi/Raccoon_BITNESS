@@ -1,40 +1,47 @@
 <?php
-session_start();
-require_once '../config/conexion.php'; // Asegúrate de tener una conexión a la base de datos en este archivo
+include '../../config/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre_usuario = $_POST['nombre_usuario'];
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
-    $confirmar_contrasena = $_POST['confirmar_contrasena'];
 
-    if ($contrasena !== $confirmar_contrasena) {
-        echo json_encode(['status' => 'error', 'message' => 'Las contraseñas no coinciden.']);
-        exit;
+    // Validar campos vacíos
+    if (empty($nombre_usuario) || empty($correo) || empty($contrasena)) {
+        echo json_encode(['status' => 'error', 'message' => 'Todos los campos son obligatorios.']);
+        exit();
     }
 
     // Verificar si el correo ya está registrado
-    $stmt = $pdo->prepare("SELECT * FROM USUARIO WHERE correo = ?");
-    $stmt->execute([$correo]);
-    if ($stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo json_encode(['status' => 'error', 'message' => 'El correo ya está registrado.']);
-        exit;
+    $query = $conn->prepare("SELECT * FROM USUARIO WHERE email = :correo");
+    $query->bindParam(':correo', $correo);
+    $query->execute();
+
+    if ($query->rowCount() > 0) {
+        echo json_encode(['status' => 'error', 'message' => 'El correo ya está registrado']);
+        exit();
     }
 
-    // Hashear la contraseña
-    $hashed_contrasena = password_hash($contrasena, PASSWORD_BCRYPT);
+    // Hash de la contraseña
+    $hash_password = password_hash($contrasena, PASSWORD_BCRYPT);
 
-    // Insertar el nuevo usuario en la base de datos
-    $stmt = $pdo->prepare("INSERT INTO USUARIO (nombre_usuario, correo, contrasena, rol) VALUES (?, ?, ?, ?)");
-    $rol = 'cliente'; // Asigna un rol por defecto o ajusta según tu lógica
-    if ($stmt->execute([$nombre_usuario, $correo, $hashed_contrasena, $rol])) {
-        $_SESSION['usuario_id'] = $pdo->lastInsertId();
-        $_SESSION['correo'] = $correo;
-        $_SESSION['rol'] = $rol; // Asigna el rol del nuevo usuario
+    // Insertar nuevo usuario
+    $query = $conn->prepare("INSERT INTO USUARIO (email, contraseña, nombre, rol) VALUES (:correo, :contrasena, :nombre_usuario, 'cliente')");
+    $query->bindParam(':correo', $correo);
+    $query->bindParam(':contrasena', $hash_password);
+    $query->bindParam(':nombre_usuario', $nombre_usuario);
 
-        echo json_encode(['status' => 'success', 'message' => 'Registro exitoso.']);
+    if ($query->execute()) {
+        // Iniciar sesión automáticamente después del registro
+        session_start();
+        $_SESSION['usuario'] = $nombre_usuario;
+        $_SESSION['email'] = $correo;
+        $_SESSION['rol'] = 'cliente'; // Agregar el rol a la sesión
+
+        // Enviar respuesta JSON
+        echo json_encode(['status' => 'success', 'message' => 'Registro exitoso']);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error en el registro.']);
+        echo json_encode(['status' => 'error', 'message' => 'Error al registrar el usuario']);
     }
 }
 ?>

@@ -106,8 +106,9 @@
 
 
 
+
 /*-----------------------------------*\
-  #RESET
+    ESTILOS REUTILIZABLES
 \*-----------------------------------*/
 
 *,
@@ -171,12 +172,6 @@ body.nav-active { overflow: hidden; }
 }
 
 
-
-
-
-/*-----------------------------------*\
-    ESTILOS REUTILIZABLES
-\*-----------------------------------*/
 
 .container { padding-inline: 12px; }
 

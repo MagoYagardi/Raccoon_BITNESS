@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
-    header("Location: ../../../../Pages/Landing/landingV.html");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,6 +5,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">  
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -72,13 +66,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
 </head>
 <body>
     <div class="sidebar">
-        <a href="admin.php">Inicio</a>
-        <a href="gestion_usuarios.php">Gestión de Usuarios</a>
-        <a href="gestion_productos.php">Gestión de Productos</a>
+        <a href="admin.html">Inicio</a>
+        <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+        <a href="gestion_productos.html">Gestión de Productos</a>
         <a href="gestion_suscripciones.html">Gestión de Suscripciones</a>
-        <a href="gestion_sucursales.php">Gestión de Sucursales</a>
-        <a href="gestion_clases.php">Gestión de Clases</a>
-        <a href="gestion_facturacion.php">Ver Facturación</a>
+        <a href="gestion_sucursales.html">Gestión de Sucursales</a>
+        <a href="gestion_actividades.html">Gestión de Actividades</a>
+        <a href="gestion_facturacion.html">Ver Facturación</a>
         <a href="../../../../Users/Sesiones/logout.php" class="btn btn-danger">Cerrar Sesión</a>
     </div>
 
@@ -89,7 +83,15 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Usa solo esta línea -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> <!-- Esto incluye Bootstrap y Popper -->
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Otros JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="../Controladores/controlarSesion.js"></script>
 </body>
 </html>

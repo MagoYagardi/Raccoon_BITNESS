@@ -5,10 +5,10 @@ require 'paga.php'; // Incluir archivo que registra la suscripción y devuelve l
 require('../../../vendor/autoload.php');
 require('../../../vendor/setasign/fpdf/fpdf.php');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
-// Asegúrate de que tu servidor esté configurado para aceptar solicitudes JSON
+    // Asegúrate de que tu servidor esté configurado para aceptar solicitudes JSON
 header('Content-Type: application/json');
 
 // Obtener la entrada JSON

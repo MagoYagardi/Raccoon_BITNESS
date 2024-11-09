@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
-    header("Location: ../../../../Pages/Landing/landingV.html");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -72,13 +64,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
 </head>
 <body>
     <div class="sidebar">
-        <a href="admin.php">Inicio</a>
-        <a href="gestion_usuarios.php">Gestión de Usuarios</a>
-        <a href="gestion_productos.php">Gestión de Productos</a>
+        <a href="admin.html">Inicio</a>
+        <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+        <a href="gestion_productos.html">Gestión de Productos</a>
         <a href="gestion_suscripciones.html">Gestión de Suscripciones</a>
-        <a href="gestion_sucursales.php">Gestión de Sucursales</a>
-        <a href="gestion_clases.php">Gestión de Clases</a>
-        <a href="gestion_facturacion.php">Ver Facturación</a>
+        <a href="gestion_sucursales.html">Gestión de Sucursales</a>
+        <a href="gestion_actividades.html">Gestión de Actividades</a>
+        <a href="gestion_facturacion.html">Ver Facturación</a>
         <a href="../../../../Users/Sesiones/logout.php" class="btn btn-danger">Cerrar Sesión</a>
     </div>
 
@@ -91,5 +83,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../Controladores/controlarSesion.js"></script>
 </body>
 </html>

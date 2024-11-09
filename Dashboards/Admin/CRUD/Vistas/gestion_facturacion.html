@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Facturas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        /* Sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #3E0D56;
+            color: #FFD500;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #FFD500;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #26141D;
+            color: #FFD500;
+        }
+
+        .content-area {
+            margin-left: 250px; /* Ensures the main content is positioned correctly */
+            padding: 20px;
+            background-color: #F9F9F9; /* Change this based on the style of gestión_productos */
+            min-height: 100vh;
+        }
+
+        .content-container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: white;
+            border: 6px solid #7E70C2;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #3E0D56;
+            font-size: 2rem; /* Ensures consistent font size */
+        }
+
+        /* DataTable styling */
+        table.dataTable thead {
+            background-color: #3E0D56;
+            color: #FFFFFF;
+        }
+
+        table.dataTable tbody tr td {
+            text-align: center;
+            background-color: white;
+        }
+
+        /* Modal styling */
+        .modal-header {
+            background-color: #B44DF2;
+            color: #FFFFFF;
+        }
+
+        .modal-title, .modal-body label {
+            color: #000000;
+        }
+
+        .modal-body {
+            background-color: #F2F2F2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="admin.html">Inicio</a>
+        <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+        <a href="gestion_productos.html">Gestión de Productos</a>
+        <a href="gestion_suscripciones.html">Gestión de Suscripciones</a>
+        <a href="gestion_sucursales.html">Gestión de Sucursales</a>
+        <a href="gestion_actividades.html">Gestión de Actividades</a>
+        <a href="gestion_facturacion.html">Ver Facturación</a>
+        <a href="../../../../Users/Sesiones/logout.php" class="btn btn-danger">Cerrar Sesión</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-area">
+        <div class="content-container">
+            <h1>Gestión de Facturas</h1>
+            <table id="facturaTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID Factura</th>
+                        <th>ID Carrito</th>
+                        <th>ID Suscripción</th>
+                        <th>Fecha Emisión</th>
+                        <th>Total</th>
+                        <th>Fecha Pago</th>
+                        <th>Método de Pago</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be dynamically loaded from the database -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- jQuery, Bootstrap, and DataTables scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../Controladores/crud_factura.js"></script>
+
+</body>
+</html>

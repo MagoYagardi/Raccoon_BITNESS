@@ -15,7 +15,8 @@
     <!-- Enlaces unicos-->
     <link rel="stylesheet" href="suscripcion.css">
     <script type="module" src="suscripcionC.js"></script>
-    <script src="../NavbarCliente-sinSub/navbarCV.js" defer></script>
+    <script type="module" src="../Landing/landingV.js"></script>
+    <script src="controlarSesion.js" defer></script>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -31,11 +32,22 @@
 
 
 <body>
-
-
-    <div id="navbar-container"></div>
-
-
+  <nav class="navbar">
+      <div class="navbar-left">
+        <ul>
+          <li>
+              <img src="../../assets/img/BITnessGYM_isologo.png" alt="Logo" class="logo" /></li>
+          <li><a class="navbar-links" href="actividadesV.html">Actividades</a></li>
+          <li><a class="navbar-links" href="entrenadoresV.html">Entrenadores</a></li>
+          <li><a class="navbar-links" href="carritoV.html">Carrito</a></li>
+        </ul>
+      </div>
+      <div class="navbar-right">
+        <a class="navbar-links" href="suscripcionV.html">MiSuscripcion</a>
+        <a id="btn-registro" class="nav-button" href="dashboard.html">MiPerfil</a>
+        <a href="../../../Users/Sesiones/logout.php" class="btn btn-danger">Cerrar Sesión</a>
+      </div>
+    </nav>
 
     <!-- Contenedor principal de la página -->
 <main class="container">

@@ -29,12 +29,39 @@
     font-style: normal;
 }
 
-:root {
-    --b-azul: #7E70C2;
-    --secondary-color: #2ecc71;
-    --background-color: #ecf0f1;
-    --text-color: #2c3e50;
+
+:root { 
+  /*colores*/
+ --white-color:  #fff;
+ --black-color: #333333;
+ --black-color-2: #151515;
+ --dark-color: #534742;
+ --primary-color:  #856c4d;
+ --secondary-color: #f5e6c3;
+ --light-pink-color:  #fbe3f7;
+ --medium-gray-color:  #fdfcf8;
+
+ /*tamanios de fuentes*/
+ --font-size-s: 0.9rem;
+ --font-size-n: 1rem;
+ --font-size-m: 1.15rem;
+ --font-size-l: 1.5rem;
+ --font-size-xl: 2rem;    
+ --font-size-xxl: 8rem;
+
+ /*Pesos de fuentes*/
+ --font-wheight-normal: 400;
+ --font-wheight-medium: 500;
+ --font-wheight-semibold: 600;
+ --font-wheight-bold: 700;
+
+ /*Radio de bordes*/
+ --border-radius-s: 8px;
+ --border-radius-m: 30px;
+ --border-radius-circle: 50%;
+
 }
+
 
 /* Estiliza la barra de desplazamiento */
 ::-webkit-scrollbar {

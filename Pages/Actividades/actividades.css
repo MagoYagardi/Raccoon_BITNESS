@@ -2,19 +2,53 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500&display=swap");
 
 
-body { 
-    background-image: url(../../assets/img/background-landing.jpg); /* Corregir la ruta de la imagen */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed; 
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    margin-top: 100px;
+body {
+  position: relative;
+  background: linear-gradient(135deg, #f5f5f5, #c0c0c0); /* Fondo de gradiente nuevo */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: 'Ubuntu', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  margin-top: 100px;
+  animation: crtScanlines 1s linear infinite;
+}
+
+/* Añadimos overlay con líneas horizontales */
+.crt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(transparent 80%, rgba(0,0,0,0.1) 80%, transparent 100%);
+  background-size: 100% 5px; /* Líneas horizontales */
+  pointer-events: none; /* Evita que interfiera con la interacción */
+  animation: crtScanlinesMove 1s infinite linear;
+}
+
+/* Animación para las líneas de escaneo */
+@keyframes crtScanlines {
+  0% {
+    background-position: 0 0;
   }
-  
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes crtScanlinesMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
 .week-calendar-container{
     height: 100vh;
     width: 100%;
@@ -219,3 +253,77 @@ h1,h3{
     display: block;
   }
   
+
+
+.line-1{
+  z-index: 15;
+  opacity: 0.5;
+}
+
+.line-2{
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.line-3{
+  z-index: 5;
+
+}
+
+
+.wave-container {
+  position: relative;
+  height: 200px; /* Ajusta la altura según sea necesario */
+  overflow: hidden; /* Para evitar que las olas se salgan del contenedor */
+}
+
+
+.wave {
+    z-index: 0s;
+    position: absolute;
+    left: 0;
+    width: 200%;
+    height: 100%; /* Ajustar según sea necesario */
+    background-size: 100% auto;
+    background-repeat: repeat no-repeat;
+    background-position: 0 bottom;
+    transform-origin: center bottom;
+  }
+  
+.wave1 {
+  -webkit-background-size: 50% 80px;
+  background-size: 50% 80px;
+}
+
+.wave2 {
+  -webkit-background-size: 50% 100px; /* Cambiado de 100px a 80px para consistencia */
+  animation: animate 12s linear infinite;
+  background-size: 50% 100px;
+}
+
+.wave3 {
+  -webkit-background-size: 50% 80px;
+  animation: animate 18s linear infinite;
+  background-size: 50% 80px;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-25%) translateY(10px); /* Ajuste de altura intermedia */
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+footer {
+  position: relative;
+  z-index: 5; /* Mayor que el de las olas */
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  text-align: center;
+  width: 100%;
+}

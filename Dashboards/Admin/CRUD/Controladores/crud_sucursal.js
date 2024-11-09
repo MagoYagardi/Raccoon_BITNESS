@@ -1,23 +1,60 @@
-let sucursales = []; // Declarando sucursales a un alcance más alto
+let sucursales = []; // Declare sucursales with a higher scope
 
-// Función para cargar sucursales desde el servidor
+// Function to initialize the DataTable for branches
+function initializeBranchDataTable() {
+    if ($.fn.DataTable.isDataTable('#branchTable')) {
+        $('#branchTable').DataTable().clear().destroy();
+    }
+
+    $('#branchTable').DataTable({
+        "data": sucursales, // Use the sucursales array to populate the DataTable
+        "columns": [
+            { "data": "id_sucursal" },
+            { "data": "nombre" },
+            { "data": "calle" },
+            { "data": "localidad" },
+            { "data": "ciudad" },
+            { "data": "codigo_postal" },
+            { "data": "telefono" },
+            { "data": "horario_apertura" },
+            { "data": "horario_cierre" },
+            { "data": "latitud" },
+            { "data": "longitud" },
+            {
+                "data": null,
+                "render": function(data, type, row) {
+                    return `
+                        <button class="btn btn-warning btn-sm" onclick="openEditBranchModal(${row.id_sucursal})">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteBranch(${row.id_sucursal})">Eliminar</button>
+                    `;
+                }
+            }
+        ],
+        "paging": true,
+        "searching": true,
+        "pageLength": 10,
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        "order": [],
+        "responsive": true,
+        "autoWidth": false
+    });
+}
+
+// Call this function after fetching the branches
 async function fetchBranches() {
     try {
         const response = await fetch('../Modelos/crud_sucursal.php', {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
         });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
         const data = await response.json();
+        sucursales = data.sucursales;
+
         const branchList = document.getElementById("branchList");
-        branchList.innerHTML = ''; // Limpiar la lista antes de agregar nuevos elementos
-
-
-
-        sucursales = data.sucursales; // Asignar sucursales obtenidas a la variable
-
-        console.log(sucursales);
+        branchList.innerHTML = '';
 
         sucursales.forEach(branch => {
             const row = document.createElement("tr");
@@ -40,17 +77,22 @@ async function fetchBranches() {
             `;
             branchList.appendChild(row);
         });
+
+        // Initialize or re-initialize the DataTable after fetching branches
+        initializeBranchDataTable();
+
     } catch (error) {
         console.error('Error al cargar las sucursales:', error);
+        Swal.fire('Error', 'No se pudieron cargar las sucursales.', 'error');
     }
 }
 
-// Función para manejar el envío del formulario para agregar una sucursal
+
 document.getElementById("branchForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Evita el envío predeterminado del formulario
+    event.preventDefault();
 
     const newBranch = {
-        branch: { // Ajustar el formato para que coincida con la estructura esperada por el backend
+        branch: {
             nombre: document.getElementById("branchName").value,
             calle: document.getElementById("branchStreet").value,
             localidad: document.getElementById("branchLocality").value,
@@ -70,18 +112,18 @@ document.getElementById("branchForm").addEventListener("submit", async function(
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newBranch) // Convertimos el objeto a JSON
+            body: JSON.stringify(newBranch)
         });
 
         const result = await response.json();
         
         if (result.success) {
             Swal.fire('Éxito', 'Sucursal agregada correctamente', 'success');
-            fetchBranches(); // Recargar las sucursales
-            $('#addBranchModal').modal('hide'); // Cerrar el modal
-            document.getElementById("branchForm").reset(); // Limpiar el formulario
+            fetchBranches(); // Refresh branches after adding
+            $('#addBranchModal').modal('hide');
+            document.getElementById("branchForm").reset();
         } else {
-            Swal.fire('Error', result.message, 'error');
+            Swal.fire('Error', result.message || 'Error al agregar la sucursal', 'error');
         }
     } catch (error) {
         console.error('Error al agregar la sucursal:', error);
@@ -89,12 +131,13 @@ document.getElementById("branchForm").addEventListener("submit", async function(
     }
 });
 
-// Función para manejar la edición de la sucursal
+
+// Edit branch submission handling
 document.getElementById("editBranchForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Evita el envío predeterminado del formulario
+    event.preventDefault();
 
     const updatedBranch = {
-        branch: { // Ajustar el formato para que coincida con la estructura esperada por el backend
+        branch: {
             id_sucursal: document.getElementById("editBranchId").value,
             nombre: document.getElementById("editNombre").value,
             calle: document.getElementById("editCalle").value,
@@ -115,14 +158,14 @@ document.getElementById("editBranchForm").addEventListener("submit", async funct
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updatedBranch) // Aquí se está enviando la sucursal actualizada
+            body: JSON.stringify(updatedBranch)
         });
 
         const data = await response.json();
         if (data.success) {
             Swal.fire('Sucursal actualizada!', '', 'success');
-            fetchBranches(); // Refresca la lista de sucursales
-            $('#editBranchModal').modal('hide'); // Oculta el modal
+            fetchBranches(); // Refresh branches after editing
+            $('#editBranchModal').modal('hide');
         } else {
             Swal.fire('Error', data.message, 'error');
         }
@@ -132,7 +175,7 @@ document.getElementById("editBranchForm").addEventListener("submit", async funct
     }
 });
 
-// Función para abrir el modal de edición con los datos de la sucursal
+// Open edit modal with branch data
 function openEditBranchModal(branchId) {
     const branch = sucursales.find(b => b.id_sucursal === branchId);
     if (branch) {
@@ -147,11 +190,12 @@ function openEditBranchModal(branchId) {
         document.getElementById("editHorarioCierre").value = branch.horario_cierre;
         document.getElementById("editLatitud").value = branch.latitud;
         document.getElementById("editLongitud").value = branch.longitud;
-        $('#editBranchModal').modal('show'); // Muestra el modal de edición
+
+        $('#editBranchModal').modal('show');
     }
 }
 
-// Función para eliminar una sucursal
+// Delete branch function
 async function deleteBranch(branchId) {
     const confirmed = await Swal.fire({
         title: '¿Estás seguro?',
@@ -169,13 +213,13 @@ async function deleteBranch(branchId) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id_sucursal: branchId }) // Pasar el ID de sucursal
+                body: JSON.stringify({ id_sucursal: branchId })
             });
 
             const result = await response.json();
             if (result.success) {
                 Swal.fire('Sucursal eliminada!', '', 'success');
-                fetchBranches(); // Refresca la lista de sucursales
+                fetchBranches(); // Refresh branches after deletion
             } else {
                 Swal.fire('Error', result.message, 'error');
             }
@@ -186,5 +230,5 @@ async function deleteBranch(branchId) {
     }
 }
 
-// Cargar las sucursales al cargar la página
+// Load branches on page load
 document.addEventListener("DOMContentLoaded", fetchBranches);

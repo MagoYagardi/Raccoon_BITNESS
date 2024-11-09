@@ -1,12 +1,31 @@
-body { 
-    background-image: url(../../assets/img/background-landing.jpg); /* Corregir la ruta de la imagen */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed; 
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+body {
+  /* Fondo con un degradado radial y textura */
+  background: radial-gradient(circle, #7B1FA2 0%, #1E1E2F 100%);
+  background-image: url('path/to/pixel-pattern.png'); /* Imagen de fondo opcional con textura pixelada */
+  background-size: cover; /* Asegura que la textura se ajuste bien */
+
+  /* Tipografía */
+  font-family: 'Press Start 2P', cursive; /* Una fuente de estilo arcade */
+  color: #FFD700; /* Color de texto principal en amarillo neon */
   
+  /* Margen y padding */
+  margin: 0;
+  padding: 0;
+
+  /* Efectos generales */
+  box-shadow: 0 0 15px 2px rgba(123, 31, 162, 0.6); /* Efecto de glow violeta */
+  text-shadow: 2px 2px 8px #00BFFF; /* Sombra de texto con un azul brillante */
+  
+  /* Animaciones sutiles */
+  animation: crtScanlines 0.1s infinite; /* Añade líneas de escaneo estilo CRT */
+}
+
+/* Animación para el efecto CRT */
+@keyframes crtScanlines {
+  0% {
+    background-position: 0 0;
   }
+  100% {
+    background-position: 0 100%;
+  }
+}

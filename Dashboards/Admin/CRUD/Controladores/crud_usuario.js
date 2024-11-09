@@ -1,27 +1,57 @@
 // Array to hold user data
 let users = [];
+let table; // Declare table variable
+
+$(document).ready(function() {
+    initializeDataTable(); // Initialize DataTable
+    fetchUsers(); // Fetch users after the table is initialized
+});
+
+// Function to initialize DataTable
+function initializeDataTable() {
+    // Ensure that the table is destroyed before re-initializing
+    if ($.fn.DataTable.isDataTable('#userTable')) {
+        $('#userTable').DataTable().clear().destroy();
+    }
+
+    // Initialize DataTable with desired options
+    table = $('#userTable').DataTable({
+        "paging": true, // Enable pagination
+        "searching": true, // Enable searching
+        "pageLength": 10, // Default number of entries to show
+        "destroy": true, // Allow the table to be destroyed and re-initialized
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json" // Spanish language file
+        },
+        "order": [], // Reset ordering
+        "responsive": true, // Make the table responsive
+        "autoWidth": false // Disable auto width to manage column widths manually
+    });
+}
 
 // Function to populate the user table
 function populateUserTable() {
-    const userList = document.getElementById("userList");
-    userList.innerHTML = ""; // Clear the table
+    // Clear existing data in DataTable
+    table.clear();
 
+    // Add new user data to DataTable
     users.forEach(user => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${user.id_usuario}</td>
-            <td>${user.email}</td>
-            <td>${user.nombre}</td>
-            <td>${user.ci}</td>
-            <td>${user.altura}</td>
-            <td>${user.rol}</td>
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="openEditUserModal(${user.id_usuario})">Editar</button>
-                <button class="btn btn-danger btn-sm" onclick="confirmDeleteUser(${user.id_usuario})">Eliminar</button>
-            </td>
-        `;
-        userList.appendChild(row);
+        table.row.add([
+            user.id_usuario,
+            user.email,
+            user.nombre,
+            user.ci,
+            user.altura,
+            user.rol,
+            `
+            <button class="btn btn-warning btn-sm" onclick="openEditUserModal(${user.id_usuario})">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmDeleteUser(${user.id_usuario})">Eliminar</button>
+            `
+        ]);
     });
+
+    // Draw the DataTable with updated data
+    table.draw();
 }
 
 // Function to fetch users from the server
@@ -69,6 +99,7 @@ document.getElementById("userForm").addEventListener("submit", async function(ev
             populateUserTable();
             Swal.fire('Usuario agregado', 'El usuario ha sido agregado exitosamente', 'success');
             document.getElementById("userForm").reset(); // Reset the form
+                        $('#addUserModal').modal('hide'); // Cierra el modal de agregar usuario
         } else {
             console.error(data.message);
         }
@@ -77,65 +108,57 @@ document.getElementById("userForm").addEventListener("submit", async function(ev
     }
 });
 
-// Function to open edit user modal
 function openEditUserModal(userId) {
-    const user = users.find(u => u.id_usuario === userId);
-    
-    if (user) {
-        document.getElementById("editUserId").value = user.id_usuario;
-        document.getElementById("editEmail").value = user.email;
-        document.getElementById("editNombre").value = user.nombre;
-        document.getElementById("editCI").value = user.ci;
-        document.getElementById("editAltura").value = user.altura;
-        document.getElementById("editRol").value = user.rol;
-        
-        Swal.fire({
-            title: 'Editar Usuario',
-            html: `
-                <input id="editEmail" class="swal2-input" placeholder="Email" value="${user.email}">
-                <input id="editNombre" class="swal2-input" placeholder="Nombre" value="${user.nombre}">
-                <input id="editCI" class="swal2-input" placeholder="CI" value="${user.ci}">
-                <input id="editAltura" class="swal2-input" placeholder="Altura" value="${user.altura}">
-                <input id="editRol" class="swal2-input" placeholder="Rol" value="${user.rol}">
-            `,
-            preConfirm: () => {
-                return {
-                    id_usuario: userId,
-                    email: document.getElementById("editEmail").value,
-                    nombre: document.getElementById("editNombre").value,
-                    ci: document.getElementById("editCI").value,
-                    altura: document.getElementById("editAltura").value,
-                    rol: document.getElementById("editRol").value,
-                };
-            }
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const updatedUser = result.value;
-                const userIndex = users.findIndex(u => u.id_usuario === userId);
-
-                try {
-                    const response = await fetch('../modelos/crud_usuario.php', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(updatedUser),
-                    });
-                    const data = await response.json();
-                    if (data.success) {
-                        users[userIndex] = updatedUser; // Update user in array
-                        populateUserTable();
-                        Swal.fire('Usuario actualizado', 'El usuario ha sido actualizado exitosamente', 'success');
-                    } else {
-                        console.error(data.message);
-                    }
-                } catch (error) {
-                    console.error('Error updating user:', error);
-                }
-            }
-        });
+    console.log("Abriendo modal para el usuario con ID:", userId); // Verifica el ID del usuario
+    const usuario = users.find(u => u.id_usuario === userId);
+    if (usuario) {
+        document.getElementById("editUserId").value = usuario.id_usuario;
+        document.getElementById("editEmail").value = usuario.email;
+        document.getElementById("editNombre").value = usuario.nombre;
+        document.getElementById("editCI").value = usuario.ci;
+        document.getElementById("editAltura").value = usuario.altura;
+        document.getElementById("editRol").value = usuario.rol;
+        console.log("Mostrando modal de edición"); // Verifica si llega a esta línea
+        $('#editUserModal').modal('show'); // Muestra el modal
+    } else {
+        console.error("Usuario no encontrado");
     }
 }
+
+// Function to handle editing a user
+document.getElementById("editUserForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const actualizarUsuario = {
+        id_usuario: document.getElementById("editUserId").value,
+        email: document.getElementById("editEmail").value,
+        nombre: document.getElementById("editNombre").value,
+        ci: document.getElementById("editCI").value,
+        altura: document.getElementById("editAltura").value,
+        rol: document.getElementById("editRol").value,
+    };
+
+    try {
+        const response = await fetch('../modelos/crud_usuario.php', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(actualizarUsuario),
+        });
+        const data = await response.json();
+        if (data.success) {
+            // Fetch users again to refresh the table
+            await fetchUsers(); 
+            Swal.fire('Usuario actualizado', 'El usuario ha sido actualizado exitosamente', 'success');
+            $('#editUserModal').modal('hide'); // Close the modal
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Error al actualizar usuario:', error);
+    }
+});
 
 // Function to confirm user deletion with SweetAlert2
 function confirmDeleteUser(userId) {

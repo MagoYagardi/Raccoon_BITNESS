@@ -1,0 +1,321 @@
+/* Estilo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 95%; /* Aumenta el ancho del contenedor */
+    max-width: 1400px; /* Aumenta el tamaño máximo del contenedor */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+h1, h2 {
+    text-align: center;
+    color: #34495E;
+    margin-bottom: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #2C3E50;
+    padding: 12px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px 20px;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #34495E;
+}
+
+/* Contenedores principales */
+.sucursal-container,
+.carrito-desglose {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.sucursal-container {
+    flex-wrap: wrap;
+}
+
+.select {
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+
+/* Estilo de los contenedores del carrito */
+.carrito-desglose {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;  /* Espacio entre los contenedores */
+    flex-wrap: wrap;  /* Asegura que los elementos se acomoden en filas cuando no haya espacio */
+}
+
+.productos-carrito,
+.precio-carrito {
+    width: 48%;
+    padding: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;  /* Añadimos espacio entre los contenedores */
+}
+
+/* Hover para los contenedores */
+.productos-carrito:hover,
+.precio-carrito:hover {
+    transform: translateY(-5px);  /* Desplazamiento suave al pasar el ratón */
+}
+
+.productos-carrito h2,
+.precio-carrito h2 {
+    font-size: 22px;
+    color: #2C3E50;
+    margin-bottom: 15px;
+}
+
+/* Productos en el carrito */
+#carrito-productos {
+    margin-top: 20px;
+}
+
+.producto-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #f2f2f2;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.producto-carrito:hover {
+    background-color: #ecf0f1;
+}
+
+.producto-carrito img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.producto-carrito h3 {
+    flex: 1;
+    font-size: 18px;
+    color: #34495E;
+}
+
+.producto-carrito p {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+.producto-carrito button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 16px;
+    background-color: #3498DB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.producto-carrito button:hover {
+    background-color: #2980B9;
+}
+
+.producto-carrito .eliminar {
+    background-color: #E74C3C;
+}
+
+.producto-carrito .eliminar:hover {
+    background-color: #C0392B;
+}
+
+/* Resumen de precio */
+.precio-carrito p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #34495E;
+}
+
+.precio-carrito .total {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.precio-carrito .btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #2ECC71;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.precio-carrito .btn:hover {
+    background-color: #27AE60;
+}
+
+.precio-carrito #paypal-button-container {
+    margin-top: 20px;
+}
+
+/* Estilo para botones de acción */
+.btn {
+    padding: 12px 25px;
+    background-color: #2ECC71;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #27AE60;
+}
+
+.completar {
+    background-color: #3498DB;
+}
+
+.completar:hover {
+    background-color: #2980B9;
+}
+
+.cancelar {
+    background-color: #E74C3C;
+}
+
+.cancelar:hover {
+    background-color: #C0392B;
+}
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .productos-carrito,
+    .precio-carrito {
+        width: 100%;  /* En pantallas pequeñas, los contenedores ocuparán el 100% del ancho */
+        margin-bottom: 20px; /* Añadimos espacio entre los contenedores */
+    }
+
+    .carrito-desglose {
+        flex-direction: column;  /* Cambiar a disposición vertical en pantallas pequeñas */
+    }
+
+    .select {
+        width: 100%;  /* Asegura que la selección de sucursal ocupe todo el ancho en pantallas pequeñas */
+    }
+}
+
+.producto-carrito {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.producto-imagen {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.cantidad-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Contenedor para los botones de cantidad y la papelera */
+.cantidad-y-eliminar {
+    display: flex;
+    align-items: center;
+    gap: 10px;  /* Espaciado entre los botones y la papelera */
+}
+
+/* Estilo para los botones de cantidad */
+.cantidad-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para los botones de cantidad */
+.cantidad-btn {
+    font-size: 2px;
+    padding: 5px 10px;
+}
+
+/* Estilo para la papelera */
+.papelera {
+    cursor: pointer;
+    color: red;
+    font-size: 30px;  /* Ajusta el tamaño del ícono */
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.papelera:hover {
+    color: darkred;
+}
+
+/* Asegurarse de que los elementos en .cantidad-container estén alineados correctamente */
+.cantidad-container button {
+    margin: 0 5px;
+}
+
+/* Estilo para los botones de PayPal */
+#paypal-button-container iframe {
+    width: 100% !important; /* Asegura que el botón de PayPal ocupe todo el ancho del contenedor */
+    max-width: 300px; /* Ajusta el tamaño máximo del botón */
+    height: 50px; /* Ajusta la altura del botón */
+    margin: 0 auto; /* Centra el botón */
+}
+
+

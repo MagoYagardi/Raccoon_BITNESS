@@ -16,10 +16,10 @@ document.querySelector('.log-form').addEventListener('submit', async (e) => {
             // Redirigir según el rol
             switch (result.rol) {
                 case 'admin':
-                    window.location.href = '../../Dashboards/Admin/CRUD/Vistas/admin.php';
+                    window.location.href = '../../Dashboards/Admin/CRUD/Vistas/admin.html';
                     break;
                 case 'cliente':
-                    window.location.href = '../../Dashboards/Cliente/cliente.php';
+                    window.location.href = '../../Dashboards/Cliente/Suscripcion/suscripcionV.html';
                     break;
                 case 'entrenador':
                     window.location.href = '../../Dashboards/Entrenador/entrenador.php';
@@ -55,7 +55,7 @@ document.querySelector('.registro-form').addEventListener('submit', async (e) =>
 
         if (result.status === 'success') {
             // Redirigir automáticamente después del registro
-            window.location.href = '../../Dashboards/Cliente/cliente.php';
+            window.location.href = '../../Dashboards/Cliente/Suscripcion/suscripcionV.html';
         }
     } catch (error) {
         console.error('Error:', error);

@@ -42,6 +42,7 @@ const toggleNavbar = function () {
   navToggleBtn.classList.toggle("active");
   overlay.classList.toggle("active");
   document.body.classList.toggle("nav-active");
+  document.querySelector("main").classList.toggle("nav-active");
 }
 
 addEventOnElements(navTogglers, "click", toggleNavbar);

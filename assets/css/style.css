@@ -790,7 +790,7 @@ left: -270px;
 }
 
 .name-list span {
-  font-size: var(--font-size-m);
+  font-size: 1.6rem;
   transition: background-color 0.3s, color 0.3s;
   padding: 5px 10px;
   border-radius: 5px;
@@ -906,7 +906,7 @@ left: -270px;
 
 .left-content p,
 .right-content p {
-  font-size: var(--font-size-m);
+  font-size: 1.6rem;
   margin-bottom: 15px;
   text-align: left;
 }
@@ -915,7 +915,6 @@ left: -270px;
   filter: grayscale();
   width: 350px;
   height: 200px;
-  border-radius: 50%;
   margin-top: 15px;
 }
 
@@ -944,7 +943,7 @@ left: -270px;
 }
 
 .contact-left p {
-  font-size: 2rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   color: #666;
 }

@@ -60,7 +60,15 @@
  --border-radius-m: 30px;
  --border-radius-circle: 50%;
 
+ --border-width-s: 0.2rem;
+ --border-width-m: 0.3rem
+
 }
+
+
+
+
+
 
 
 /* Estiliza la barra de desplazamiento */

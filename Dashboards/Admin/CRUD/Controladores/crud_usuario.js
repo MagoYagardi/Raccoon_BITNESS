@@ -16,25 +16,23 @@ function initializeDataTable() {
 
     // Initialize DataTable with desired options
     table = $('#userTable').DataTable({
-        "paging": true, // Enable pagination
-        "searching": true, // Enable searching
-        "pageLength": 10, // Default number of entries to show
-        "destroy": true, // Allow the table to be destroyed and re-initialized
+        "paging": true,
+        "searching": true,
+        "pageLength": 10,
+        "destroy": true,
         "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json" // Spanish language file
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
         },
-        "order": [], // Reset ordering
-        "responsive": true, // Make the table responsive
-        "autoWidth": false // Disable auto width to manage column widths manually
+        "order": [],
+        "responsive": true,
+        "autoWidth": false
     });
 }
 
 // Function to populate the user table
 function populateUserTable() {
-    // Clear existing data in DataTable
     table.clear();
 
-    // Add new user data to DataTable
     users.forEach(user => {
         table.row.add([
             user.id_usuario,
@@ -43,14 +41,14 @@ function populateUserTable() {
             user.ci,
             user.altura,
             user.rol,
-            `
-            <button class="btn btn-warning btn-sm" onclick="openEditUserModal(${user.id_usuario})">Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeleteUser(${user.id_usuario})">Eliminar</button>
-            `
+`
+<button class="btn btn-warning btn-sm" onclick="openEditUserModal(${user.id_usuario})">Editar</button>
+<button class="btn btn-danger btn-sm" onclick="confirmDeleteUser(${user.id_usuario})">Eliminar</button>
+`
+
         ]);
     });
 
-    // Draw the DataTable with updated data
     table.draw();
 }
 
@@ -72,7 +70,34 @@ async function fetchUsers() {
     }
 }
 
-// Function to handle adding a user
+// Función para mostrar los campos específicos según el rol seleccionado
+function showRoleSpecificFields() {
+    const selectedRole = document.getElementById('rol').value;
+    
+    // Ocultar todos los campos específicos
+    document.getElementById('adminFields').style.display = 'none';
+    document.getElementById('trainerFields').style.display = 'none';
+    document.getElementById('clientFields').style.display = 'none';
+    document.getElementById('contableFields').style.display = 'none';
+
+    // Mostrar los campos específicos según el rol seleccionado
+    switch (selectedRole) {
+        case 'admin':
+            document.getElementById('adminFields').style.display = 'block';
+            break;
+        case 'entrenador':
+            document.getElementById('trainerFields').style.display = 'block';
+            break;
+        case 'cliente':
+            document.getElementById('clientFields').style.display = 'block';
+            break;
+        case 'contable':
+            document.getElementById('contableFields').style.display = 'block';
+            break;
+    }
+}
+
+// Función para manejar el envío del formulario y agregar el usuario
 document.getElementById("userForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -81,9 +106,24 @@ document.getElementById("userForm").addEventListener("submit", async function(ev
         nombre: document.getElementById("nombre").value,
         ci: document.getElementById("ci").value,
         altura: document.getElementById("altura").value,
-        password: document.getElementById("password").value,
-        rol: document.getElementById("rol").value
+        password: document.getElementById("password").value,  // Agregar contraseña
+        rol: document.getElementById("rol").value,
     };
+
+    // Agregar los campos específicos según el rol seleccionado
+    if (newUser.rol === 'admin') {
+        newUser.cargo = document.getElementById("cargo").value;
+    } else if (newUser.rol === 'entrenador') {
+        newUser.especialidad = document.getElementById("especialidad").value;
+        newUser.detalles = document.getElementById("detalles").value;
+        newUser.precio = document.getElementById("precio").value;
+    } else if (newUser.rol === 'cliente') {
+        newUser.estado_sus = document.getElementById("estado_sus").value;
+        newUser.sus_preferida = document.getElementById("sus_preferida").value;
+        newUser.concurrencia = document.getElementById("concurrencia").value;
+    } else if (newUser.rol === 'contable') {
+        newUser.responsabilidad = document.getElementById("responsabilidad").value;
+    }
 
     try {
         const response = await fetch('../modelos/crud_usuario.php', {
@@ -95,11 +135,9 @@ document.getElementById("userForm").addEventListener("submit", async function(ev
         });
         const data = await response.json();
         if (data.success) {
-            users.push({...newUser, id_usuario: users.length + 1}); // Assign a temporary ID
-            populateUserTable();
             Swal.fire('Usuario agregado', 'El usuario ha sido agregado exitosamente', 'success');
-            document.getElementById("userForm").reset(); // Reset the form
-                        $('#addUserModal').modal('hide'); // Cierra el modal de agregar usuario
+            document.getElementById("userForm").reset();
+            $('#addUserModal').modal('hide');
         } else {
             console.error(data.message);
         }
@@ -108,8 +146,9 @@ document.getElementById("userForm").addEventListener("submit", async function(ev
     }
 });
 
+
+// Function to open edit user modal
 function openEditUserModal(userId) {
-    console.log("Abriendo modal para el usuario con ID:", userId); // Verifica el ID del usuario
     const usuario = users.find(u => u.id_usuario === userId);
     if (usuario) {
         document.getElementById("editUserId").value = usuario.id_usuario;
@@ -118,8 +157,7 @@ function openEditUserModal(userId) {
         document.getElementById("editCI").value = usuario.ci;
         document.getElementById("editAltura").value = usuario.altura;
         document.getElementById("editRol").value = usuario.rol;
-        console.log("Mostrando modal de edición"); // Verifica si llega a esta línea
-        $('#editUserModal').modal('show'); // Muestra el modal
+        $('#editUserModal').modal('show');
     } else {
         console.error("Usuario no encontrado");
     }
@@ -148,17 +186,16 @@ document.getElementById("editUserForm").addEventListener("submit", async functio
         });
         const data = await response.json();
         if (data.success) {
-            // Fetch users again to refresh the table
-            await fetchUsers(); 
+            await fetchUsers();
             Swal.fire('Usuario actualizado', 'El usuario ha sido actualizado exitosamente', 'success');
-            $('#editUserModal').modal('hide'); // Close the modal
+            $('#editUserModal').modal('hide');
         } else {
             console.error(data.message);
         }
     } catch (error) {
         console.error('Error al actualizar usuario:', error);
     }
-});
+},
 
 // Function to confirm user deletion with SweetAlert2
 function confirmDeleteUser(userId) {
@@ -193,8 +230,8 @@ function confirmDeleteUser(userId) {
                 console.error('Error deleting user:', error);
             }
         }
-    });
-}
+    }); // This closes the .then() block correctly
+});
 
 // Fetch users on page load
 fetchUsers();

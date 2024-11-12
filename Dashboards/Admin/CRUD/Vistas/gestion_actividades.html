@@ -3,65 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Gestión de Actividades</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">  
+    <link rel="stylesheet" href="../estilos/admin1.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+        /* Estilos para el sidebar */
         .sidebar {
             height: 100%;
             width: 250px;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #4B2C8D;
-            color: #F2E65B;
+            background-color: #3E0D56;
+            color: #FFD500;
             padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
         }
+
         .sidebar a {
-            padding: 15px 20px;
+            padding: 10px 15px;
             text-decoration: none;
-            font-size: 18px;
-            color: #F2E65B;
+            font-size: 16px;
+            color: #FFD500;
             display: block;
-            transition: background-color 0.3s;
         }
+
         .sidebar a:hover {
-            background-color: #3A1A4C;
-            color: #FFD700;
+            background-color: #26141D;
+            color: #FFD500;
         }
-        .content {
+
+        .welcome-background {
             margin-left: 250px;
-            padding: 30px;
-            background-color: #EAEAEA;
+            padding: 20px;
+            background-color: white;
             min-height: 100vh;
-            transition: margin-left 0.3s;
         }
+        
+        .welcome-container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: white;
+            border: 6px solid #7E70C2;
+            padding: 20px;
+        }
+
+        .modal-body label {
+            color: #000000;
+        }
+
         h1 {
-            color: #4B2C8D;
-            font-size: 2.5rem;
+            color: #3E0D56;
+        }
+
+        button {
+            background-color: #B44DF2;
+            color: #FFFFFF;
             margin-bottom: 20px;
         }
-        p {
-            color: #4B2C8D;
-            font-size: 1.2rem;
+
+        button:hover {
+            background-color: #7E70C2;
         }
-        .btn-danger {
-            background-color: #FF3B5B;
+
+        table {
+            width: 100%;
+            background-color: black;
+        }
+
+        thead {
+            border: 1px solid black;
+        }
+
+        th {
             color: #FFFFFF;
-            font-weight: bold;
+            text-align: center;
         }
-        .btn-danger:hover {
-            background-color: #C62839;
-            transition: background-color 0.3s;
+
+        td {
+            background-color: white;
+            text-align: center;
         }
-        .btn {
-            margin-top: 15px;
+
+        .modal-header {
+            background-color: #B44DF2;
+            color: #FFFFFF;
         }
+
+        .modal-title {
+            color: #000000 !important;
+        }
+
+        h5 {
+            color: #000000;
+        }
+
+        .modal-body {
+            background-color: #F2F2F2;
+        }
+        
+        .btn-primary {
+        background-color: #B44DF2; /* Primary button color */
+        border: none; /* No border */
+    }
+
+    .btn-primary:hover {
+        background-color: #7E70C2; /* Darker shade on hover */
+    }
+
+    #branchTable {
+        font-size: 15px; /* Cambia el tamaño de la fuente */
+        width: 90%; /* Ajusta el ancho de la tabla */
+        margin: auto; /* Centra la tabla */
+    }
+
+    #branchTable th, #branchTable td {
+        padding: 15px; /* Reduce el padding de las celdas */
+    }
+
     </style>
 </head>
 <body>
@@ -76,12 +137,143 @@
         <a href="../../../../Users/Sesiones/logout.php" class="btn btn-danger">Cerrar Sesión</a>
     </div>
 
-    <div class="content">
-        <div class="container">
-            <h1>Bienvenido al Panel de Administración</h1>
-            <p>Como administrador, puedes gestionar todos los aspectos del sistema.</p>
+    <div class="welcome-background">
+        <div class="welcome-container">
+            <h1>Gestión de Actividades</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityAndClassModal">
+                Agregar Clase
+            </button>
+    
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTrainingModal">
+                Agregar Entrenamiento
+            </button>
+
+    <!-- Modal para agregar Actividad y Clase -->
+    <div class="modal fade" id="addActivityAndClassModal" tabindex="-1" aria-labelledby="addActivityAndClassModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addActivityAndClassModalLabel">Agregar Clase</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="activityClassForm">
+                        <h6>Datos de Actividad</h6>
+                        <div class="form-group">
+                            <label for="actividadHoraInicio" class="form-label">Hora de Inicio</label>
+                            <input type="time" class="form-control" id="actividadHoraInicio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="actividadHoraFin" class="form-label">Hora de Fin</label>
+                            <input type="time" class="form-control" id="actividadHoraFin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="actividadDia" class="form-label">Día</label>
+                            <select class="form-control" id="actividadDia" required>
+                                <option value="Lunes">Lunes</option>
+                                <option value="Martes">Martes</option>
+                                <option value="Miércoles">Miércoles</option>
+                                <option value="Jueves">Jueves</option>
+                                <option value="Viernes">Viernes</option>
+                                <option value="Sábado">Sábado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="claseNombre" class="form-label">Nombre de la Clase</label>
+                            <input type="text" class="form-control" id="claseNombre" required>
+                        </div>
+    
+                        <button type="submit" class="btn btn-primary">Agregar Clase</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
+<table class="table table-bordered mt-4" id="tablaActividad">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Hora Inicio</th>
+            <th>Hora Fin</th>
+            <th>Día</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="actividadList">
+        <!-- Las sucursales se cargarán aquí dinámicamente -->
+    </tbody>
+</table>
+
+<!-- Modal de edición de actividad -->
+<div id="editActividadModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Actividad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editActivityClassForm">
+                    <input type="hidden" id="editActividadId" name="editActividadId">
+                    <div class="form-group">
+                        <label for="editActividadHoraInicio">Hora de inicio</label>
+                        <input type="text" id="editActividadHoraInicio" name="horaInicio" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="editActividadHoraFin">Hora de fin</label>
+                        <input type="text" id="editActividadHoraFin" name="horaFin" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="actividadDia">Día</label>
+                        <input type="text" id="actividadDia" name="actividadDia" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<h1>Gestión de Clases</h1>
+
+<table class="table table-bordered mt-4" id="tablaClase">
+    <thead>
+        <tr>
+            <th>ID Actividad</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="claseList">
+        <!-- Las sucursales se cargarán aquí dinámicamente -->
+    </tbody>
+</table>
+
+<br>
+<h1>Gestión de Entrenamientos</h1>
+
+<table class="table table-bordered mt-4" id="tablaEntrenamiento">
+    <thead>
+        <tr>
+            <th>ID Actividad</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="entrenamientoList">
+        <!-- Las sucursales se cargarán aquí dinámicamente -->
+    </tbody>
+</table>
+
+
 
     <!-- jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Usa solo esta línea -->
@@ -93,5 +285,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="../Controladores/controlarSesion.js"></script>
+    <script src="../Controladores/crud_actividad.js"></script>
+    <script src="../Controladores/entrenamientoTabla.js"></script>
+    <script src="../Controladores/claseTabla.js"></script>
 </body>
 </html>

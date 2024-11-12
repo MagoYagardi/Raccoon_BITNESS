@@ -4,11 +4,17 @@ include '../../../../config/conexion.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    obtenerFacturas();
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
-    $accion = $_POST['accion'];
-    if ($accion === 'eliminar') {
-        eliminarFactura($_POST['id_factura']);
+    if (isset($_GET['action'])) {
+        $action = $_GET['action'];
+        if ($action === 'descargar') {
+            descargarFactura($_GET['id_factura']);
+        } elseif ($action === 'imprimir') {
+            imprimirFactura($_GET['id_factura']);
+        } else {
+            obtenerFacturas();
+        }
+    } else {
+        obtenerFacturas();
     }
 }
 
@@ -23,15 +29,48 @@ function obtenerFacturas() {
     }
 }
 
-function eliminarFactura($id_factura) {
+// Función para descargar el archivo PDF
+function descargarFactura($id_factura) {
     global $conn;
     try {
-        $stmt = $conn->prepare("DELETE FROM FACTURA WHERE id_factura = :id_factura");
+        $stmt = $conn->prepare("SELECT ruta_pdf FROM FACTURA WHERE id_factura = :id_factura");
         $stmt->bindParam(':id_factura', $id_factura, PDO::PARAM_INT);
         $stmt->execute();
-        echo json_encode(['success' => true]);
+        $factura = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($factura && file_exists($factura['ruta_pdf'])) {
+            // Redirigir al archivo PDF para descargarlo
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="factura_' . $id_factura . '.pdf"');
+            readfile($factura['ruta_pdf']);
+            exit;
+        } else {
+            echo json_encode(['error' => 'Factura no encontrada o PDF no disponible']);
+        }
     } catch (PDOException $e) {
-        echo json_encode(['error' => 'Error al eliminar la factura: ' . $e->getMessage()]);
+        echo json_encode(['error' => 'Error al obtener el archivo PDF: ' . $e->getMessage()]);
     }
 }
+
+// Función para imprimir el archivo PDF
+function imprimirFactura($id_factura) {
+    global $conn;
+    try {
+        $stmt = $conn->prepare("SELECT ruta_pdf FROM FACTURA WHERE id_factura = :id_factura");
+        $stmt->bindParam(':id_factura', $id_factura, PDO::PARAM_INT);
+        $stmt->execute();
+        $factura = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($factura && file_exists($factura['ruta_pdf'])) {
+            // Redirigir al archivo PDF para abrirlo en una nueva ventana
+            header('Location: ' . $factura['ruta_pdf']);
+            exit;
+        } else {
+            echo json_encode(['error' => 'Factura no encontrada o PDF no disponible']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['error' => 'Error al obtener el archivo PDF: ' . $e->getMessage()]);
+    }
+}
+
 ?>

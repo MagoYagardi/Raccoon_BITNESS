@@ -1,4 +1,4 @@
-
+/* Estilos generales */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,6 +8,8 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
+    background-color: #141314dc; /* Color de fondo */
+    overflow-x: hidden;
 }
 
 .container {
@@ -20,7 +22,7 @@ body {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: var(--border-width-s) solid var( --black-color-2);
+    border: var(--border-width-s) solid var(--black-color-2);
 }
 
 .card-container {
@@ -29,8 +31,8 @@ body {
     gap: 10px;
     overflow-x: auto;
     padding: 10px;
-    border: var(--border-width-m) solid var( --black-color-2);
-    box-shadow:  8px 8px 0px 0px var( --black-color-2);
+    border: var(--border-width-m) solid var(--black-color-2);
+    box-shadow: 8px 8px 0px 0px var(--black-color-2);
     background-color: var(--soft-purple-);
 }
 
@@ -40,7 +42,7 @@ body {
     background-color: var(--black-color-2);
     text-align: center;
     aspect-ratio: 1 / 1.2;
-    border: var(--border-width-s) solid var( --black-color-2);
+    border: var(--border-width-s) solid var(--black-color-2);
 }
 
 .card img {
@@ -51,17 +53,14 @@ body {
     min-height: 80%;
     max-height: 80%;
     height: auto;
-    border-bottom: var(--border-width-s) solid var( --black-color-2);
+    border-bottom: var(--border-width-s) solid var(--black-color-2);
 }
 
 .card-name {
     margin-top: 100%;
     color: white;
     font-size: var(--font-size-l);
-
 }
-
-
 
 .card-icon {
     position: absolute;
@@ -69,7 +68,6 @@ body {
     right: 0px;
     color: gold;
     font-size: var(--font-size-l);
-    
 }
 
 .profile-section {
@@ -79,8 +77,8 @@ body {
     gap: 20px;
     padding: 20px;
     margin-top: 20px;
-    border: var(--border-width-m) solid var( --black-color-2);
-    box-shadow:  8px 8px 0px 0px var( --black-color-2);
+    border: var(--border-width-m) solid var(--black-color-2);
+    box-shadow: 8px 8px 0px 0px var(--black-color-2);
 }
 
 .left-info {
@@ -88,19 +86,18 @@ body {
     flex-direction: column;
     max-width: 80vw;
     background-color: #fcff3d;
-    border: var(--border-width-s) solid var( --black-color-2);
+    border: var(--border-width-s) solid var(--black-color-2);
 }
 
 .info-box {
     padding: 10px;
-    border-bottom: var(--border-width-s) solid var( --black-color-2);
-    
+    border-bottom: var(--border-width-s) solid var(--black-color-2);
 }
 
 .carousel {
     position: relative;
     overflow: hidden;
-    background-color: var( --black-color-2);
+    background-color: var(--black-color-2);
     padding: 3px;
     text-align: center;
 }
@@ -118,8 +115,7 @@ body {
     gap: 10px;
     background-color: #2f003d80;
     padding: 20px;
-    border: var(--border-width-s) solid var( --black-color-2);
-    
+    border: var(--border-width-s) solid var(--black-color-2);
 }
 
 .right-info img {
@@ -128,32 +124,29 @@ body {
     border-radius: 50%;
 }
 
-
 .connect-button {
     font-family: DIGITAL;
     background-color: #d1a8ff;
     border: 3px solid black;
     padding: 10px 50px;
-    color: black;   
+    color: black;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 5px 5px black; /* Sombra inicial que simula estar flotando */
-  }
-  .connect-button:hover {
-    box-shadow: none; /* Elimina la sombra cuando se presiona */
-    transform: translate(4px, 4px); /* Simula que el botón se "presiona" */
-  }
+    box-shadow: 5px 5px black;
+}
 
+.connect-button:hover {
+    box-shadow: none;
+    transform: translate(4px, 4px);
+}
 
-
-/* Estilos para las flechas de navegación del carrusel */
+/* Estilos de las flechas de navegación del carrusel */
 .carousel button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background-color: transparent;
-    color: ;
     border: none;
     padding: 10px;
     border-radius: 50%;
@@ -166,7 +159,6 @@ body {
 
 .carousel button:hover {
     opacity: 1;
-    background-color: rgba(219, 15, 15, 0.8);
 }
 
 #prev {
@@ -177,7 +169,6 @@ body {
     right: 10px;
 }
 
-/* Animación de deslizamiento para el carrusel */
 .carousel-images {
     display: flex;
     overflow: hidden;
@@ -192,9 +183,6 @@ body {
     transition: transform 0.5s ease-in-out;
 }
 
-
-
-
 footer {
     margin-top: 20px;
     text-align: center;
@@ -202,7 +190,7 @@ footer {
     color: #555;
 }
 
-/* Media Query para pantallas menores a 640px */
+/* Media query para pantallas menores a 640px */
 @media (max-width: 640px) {
     .card-container {
         grid-template-columns: repeat(2, 1fr);
@@ -211,4 +199,35 @@ footer {
     .profile-section {
         grid-template-columns: 1fr;
     }
+}
+
+/* Estilos para la cuadrícula en perspectiva */
+.grid-container {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    perspective: 1000px;
+    overflow: hidden;
+    z-index: -1;
+    margin-left: -20px;
+}
+
+.grid-container::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: linear-gradient(#ffffff 5px, transparent 5px), linear-gradient(to right, #ffffff 3px, transparent 3px);
+    background-size: 150px 200px;
+    transform: rotateX(75deg) translateZ(-200px);
+    z-index: -1;
+}
+
+.content {
+    text-align: center;
+    z-index: 1;
 }

@@ -117,6 +117,13 @@ h1 {
     height: auto;
 }
 
+
+#calendar {
+  margin-bottom: 20px;
+}
+
+
+
 /* Estilos de las cajas de músculos */
 .muscle-grid {
   display: grid;
@@ -134,9 +141,18 @@ h1 {
   border-radius: 5px;
   padding: 10px;
   cursor: grab;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
+.muscle-box.dragging {
+  background-color: #76c7c0;
+  transform: scale(1.1);
+}
+
+
+
 /* Estilos del modal */
+
 .modal {
   display: none;
   position: fixed;
@@ -160,16 +176,6 @@ h1 {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
-}
-
-.muscle-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ddd;
-    border: 1px solid #bbb;
-    border-radius: 5px;
-    padding: 10px;
 }
 
 .charts-section {

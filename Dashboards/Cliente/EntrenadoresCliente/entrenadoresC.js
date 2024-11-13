@@ -3,10 +3,10 @@ $(document).ready(function () {
     const trainers = [
         { 
             name: "Entrenador 1", 
-            photo: "../../../assets/img/deadlift.jpg", 
+            photo: "entrenador1-pf.png", 
             details: "Detalles del Entrenador 1",
             specialty: "Pesas",
-            carouselImages: ["../../../assets/img/deadlift.jpg", "../../../assets/img/carlitox.webp"]
+            carouselImages: ["entrenador1.png", "entrenador.png"]
         },
         { 
             name: "Carlitox", 

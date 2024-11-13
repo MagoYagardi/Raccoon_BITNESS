@@ -7,63 +7,67 @@
     <title>Entrenadores</title>
     <link rel="icon" href="../../assets/img/BITnessGYM_mini.png" type="image/png">
 
-    <!-- Enlaces unicos-->
+    <!-- Enlaces únicos -->
     <script src="entrenadoresV.js" defer></script>
+    <script src="entrenadoresC.js" defer></script>
     <script src="../NavbarCliente-sinSub/navbarCV.js"></script>
     
     <link rel="stylesheet" href="entrenadores.css">
-  
 
-    <!-- Enlaces globales-->
+    <!-- Enlaces globales -->
     <link rel="stylesheet" href="../../../config/global.css">
-    <script src="../../../config/jquery-3.7.1.min.js" ></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" ></script>
-    
+    <script src="../../../config/jquery-3.7.1.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 </head>
 <body>
+    <div id="navbar-container"></div>
 
-  <div id="navbar-container"></div>
-
-  <div class="container">
-    <!-- Filtro de búsqueda -->
-    <input type="text" id="filter" class="filter" placeholder="Filtrar entrenadores por nombre, stats, especialidad, etc.">
-
-    <!-- Cuadro de cartas scrollable -->
-    <div class="card-container">
-        <!-- Las cartas de entrenadores se cargarán aquí dinámicamente -->
-    </div>
-
-    <!-- Sección de perfil en estilo bento -->
-    <div class="profile-section" style="display: none;">
-        <!-- Columna izquierda con nombre, especialidad, y texto -->
-        <div class="left-info">
-            <div class="info-box">Nombre: <span id="profile-name"></span></div>
-            <div class="info-box">Especialidad: <span id="profile-specialty">Especialidad</span></div>
-            <div class="info-box">
-                <p id="profile-details">Descripción breve del entrenador.</p>
-            </div>
-        </div>
-        
-        <!-- Cuadro grande inferior para carrusel de fotos -->
-        <div class="carousel">
-            <div id="carousel-images" class="carousel-images">
-                <!-- Las imágenes del carrusel se cargarán aquí dinámicamente -->
-            </div>
-            <button id="prev" class="carousel-button">&#10094;</button>
-            <button id="next" class="carousel-button">&#10095;</button>
-        </div>
-
-        <!-- Cuadro derecho para información detallada y foto de perfil -->
-        <div class="right-info">
-            <img id="profile-photo" src="" alt="Foto de perfil">
-            <button class="connect-button">Conectar con Entrenador</button>
+    <!-- Fondo de cuadrícula en perspectiva -->
+    <div class="grid-container">
+        <div class="content">
         </div>
     </div>
-  </div>
-    
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <!-- Filtro de búsqueda -->
+        <input type="text" id="filter" class="filter" placeholder="Filtrar entrenadores por nombre, stats, especialidad, etc.">
+
+        <!-- Cuadro de cartas scrollable -->
+        <div class="card-container">
+            <!-- Las cartas de entrenadores se cargarán aquí dinámicamente -->
+        </div>
+
+        <!-- Sección de perfil en estilo bento -->
+        <div class="profile-section" style="display: none;">
+            <!-- Columna izquierda con nombre, especialidad, y texto -->
+            <div class="left-info">
+                <div class="info-box">Nombre: <span id="profile-name"></span></div>
+                <div class="info-box">Especialidad: <span id="profile-specialty">Especialidad</span></div>
+                <div class="info-box">
+                    <p id="profile-details">Descripción breve del entrenador.</p>
+                </div>
+            </div>
+            
+            <!-- Cuadro grande inferior para carrusel de fotos -->
+            <div class="carousel">
+                <div id="carousel-images" class="carousel-images">
+                    <!-- Las imágenes del carrusel se cargarán aquí dinámicamente -->
+                </div>
+                <button id="prev" class="carousel-button">&#10094;</button>
+                <button id="next" class="carousel-button">&#10095;</button>
+            </div>
+
+            <!-- Cuadro derecho para información detallada y foto de perfil -->
+            <div class="right-info">
+                <img id="profile-photo" src="" alt="Foto de perfil">
+                <button class="connect-button">Conectar con Entrenador</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.</p>
     </footer>
-
 </body>
 </html>

@@ -35,11 +35,15 @@
  --white-color:  #fff;
  --black-color: #333333;
  --black-color-2: #151515;
- --dark-color: #534742;
- --primary-color:  #856c4d;
- --secondary-color: #f5e6c3;
- --light-pink-color:  #fbe3f7;
+
+ --logo-yellow:  #ffd500;
+ --logo-purple: #2f0b41;
+ --logo-blue:  #7e70c2;
+
  --medium-gray-color:  #fdfcf8;
+ --soft-purple-:  #d8c2f5;
+ --dark-purple-: #2f003d80;
+  
 
  /*tamanios de fuentes*/
  --font-size-s: 0.9rem;
@@ -64,7 +68,6 @@
  --border-width-m: 0.3rem
 
 }
-
 
 
 

@@ -20,14 +20,13 @@ function cargarProductos() {
                 const productDiv = document.createElement("div");
                 productDiv.classList.add("producto-card");
 
-                const imageUrl = `http://localhost/BIT_v1/assets/imgProducts/${producto.imagen_url.split('/').pop()}`;
+                const imageUrl = `http://localhost/BITnessGYM//assets/imgProducts/${producto.imagen_url.split('/').pop()}`;
 
                 productDiv.innerHTML = `
                     <img src="${imageUrl}" alt="${producto.nombre}" class="producto-imagen" />
                     <h3>${producto.nombre}</h3>
                     <p>Precio: $${producto.precio}</p>
                     <p>Stock: ${producto.stock}</p>
-                    <button class="btn" onclick="agregarProducto(${producto.id_producto}, 1)">Agregar al Carrito</button>
                 `;
                 productosDiv.appendChild(productDiv);
             });
@@ -143,10 +142,4 @@ function guardarCarritoEnLocalStorage() {
 
     // Guardar el nuevo carrito en el localStorage
     localStorage.setItem('cart', JSON.stringify(cartData));
-}
-
-
-// Función para redirigir al carrito sin pasar los IDs en la URL
-function irAlCarrito() {
-    window.location.href = 'carrito.html';
 }

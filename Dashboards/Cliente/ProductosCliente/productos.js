@@ -1,152 +1,133 @@
-let idCarrito = null; // id del carrito
-let productosEnCarrito = []; // IDs de los productos en el carrito
-
-// Intentamos obtener el carrito desde localStorage
-const savedCart = localStorage.getItem('cart');
-if (savedCart) {
-    const parsedCart = JSON.parse(savedCart);
-    idCarrito = parsedCart.idCarrito || null;
-    productosEnCarrito = parsedCart.productosEnCarrito || [];
+// Función para agregar un producto al carrito
+function agregarProductoCarrito(id_producto) {
+    // Se obtiene el ID del usuario de la sesión del servidor, por ejemplo, utilizando un AJAX o una variable PHP global.
+    fetch('Modelos/agregar_producto.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_producto: id_producto })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Si la respuesta es exitosa, mostramos un mensaje con SweetAlert2
+            Swal.fire({
+                icon: 'success',
+                title: 'Producto agregado al carrito',
+                text: '¡El producto ha sido agregado exitosamente!',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            // Si hubo un error al agregar el producto, mostramos un mensaje con SweetAlert2
+            Swal.fire({
+                icon: 'error',
+                title: 'Hubo un problema al agregar el producto',
+                text: 'Intenta nuevamente.',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Si ocurre un error de red o algo inesperado
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al procesar la solicitud',
+            text: 'Hubo un problema al procesar la solicitud. Intenta más tarde.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
 }
 
 // Función para cargar los productos desde el servidor
 function cargarProductos() {
-    fetch("Modelos/productos.php")
-        .then(response => response.json())
-        .then(data => {
-            const productosDiv = document.getElementById("productos");
-            productosDiv.innerHTML = ''; // Limpiar productos previos
+    fetch('Modelos/productos.php') // Ruta al archivo PHP para obtener productos
+    .then(response => response.json())
+    .then(data => {
+        if (data.productos) {
+            let productosContainer = document.getElementById('productos_listado');
+            productosContainer.innerHTML = ''; // Limpiar el contenedor de productos antes de agregar nuevos
+
+            // Iterar sobre los productos y agregarlos al contenedor
             data.productos.forEach(producto => {
-                const productDiv = document.createElement("div");
-                productDiv.classList.add("producto-card");
-
-                const imageUrl = `http://localhost/BIT_v1/assets/imgProducts/${producto.imagen_url.split('/').pop()}`;
-
-                productDiv.innerHTML = `
-                    <img src="${imageUrl}" alt="${producto.nombre}" class="producto-imagen" />
-                    <h3>${producto.nombre}</h3>
-                    <p>Precio: $${producto.precio}</p>
-                    <p>Stock: ${producto.stock}</p>
-                    <button class="btn" onclick="agregarProducto(${producto.id_producto}, 1)">Agregar al Carrito</button>
+                let productoHTML = `
+                    <div class="producto-item">
+                        <img src="${producto.imagen_url}" alt="${producto.nombre}" class="producto-imagen">
+                        <h3>${producto.nombre}</h3>
+                        <p>${producto.descripcion}</p>
+                        <p>Precio: $${producto.precio}</p>
+                        <p>Stock disponible: ${producto.stock}</p>
+                        <button onclick="agregarProductoCarrito(${producto.id_producto})">Agregar al carrito</button>
+                    </div>
                 `;
-                productosDiv.appendChild(productDiv);
+                productosContainer.innerHTML += productoHTML;
             });
-        })
-        .catch(error => console.error('Error loading products:', error));
-}
-
-// Función para agregar un producto al carrito
-function agregarProducto(idProducto, cantidad) {
-    if (idCarrito === null) {
-        console.log("Carrito no encontrado, creando nuevo...");
-        // Primero crea el carrito y luego llama a agregar el producto
-        crearCarrito().then(response => {
-            if (response && response.id_carrito) {
-                idCarrito = response.id_carrito;
-                productosEnCarrito.push(idProducto);
-                guardarCarritoEnLocalStorage();
-                agregarAlCarrito(idProducto, cantidad);
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al crear el carrito',
-                    text: 'Hubo un problema al crear tu carrito. Intenta nuevamente.'
-                });
-            }
+        } else {
+            console.error('Error al cargar productos:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Muestra un mensaje de error con SweetAlert2 si no se pueden cargar los productos
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al cargar los productos',
+            text: 'Hubo un problema al cargar los productos. Intenta nuevamente.',
+            confirmButtonText: 'Aceptar'
         });
-    } else {
-        // Si el carrito ya existe, agrega directamente el producto
-        productosEnCarrito.push(idProducto);
-        guardarCarritoEnLocalStorage();
-        agregarAlCarrito(idProducto, cantidad);
-    }
+    });
 }
 
-// Función para crear el carrito
-function crearCarrito() {
-    const idSucursal = 1;
-    console.log(`Creando carrito para sucursal ${idSucursal}`);
+// Inicializar la carga de productos cuando la página esté lista
+document.addEventListener('DOMContentLoaded', function() {
+    cargarProductos(); // Llamar a la función para cargar los productos
+});
 
-    return fetch(`crear_carrito.php?id_sucursal=${idSucursal}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor al crear el carrito');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Carrito creado:', data);
-            return data;
-        })
-        .catch(error => {
-            console.error('Error al crear el carrito:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al crear el carrito',
-                text: 'Hubo un problema al conectar con el servidor. Intenta más tarde.'
-            });
-        });
-}
-
-// Función para agregar el producto al carrito
-function agregarAlCarrito(idProducto, cantidad) {
-    fetch(`agregar_producto.php?id_carrito=${idCarrito}&id_producto=${idProducto}&cantidad=${cantidad}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor');
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log("Respuesta cruda del servidor:", data);
-            try {
-                const jsonData = JSON.parse(data);
-                if (jsonData.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Producto agregado',
-                        text: 'El producto se ha agregado correctamente al carrito.',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: jsonData.message || 'Hubo un problema al agregar el producto al carrito. Intenta nuevamente.'
-                    });
-                }
-            } catch (error) {
-                console.error('Error al parsear JSON:', error);
-            }
-        })
-        .catch(error => {
-            console.error('Error al agregar al carrito:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error de conexión',
-                text: 'No se pudo conectar al servidor. Intenta más tarde.'
-            });
-        });
-}
-
-// Función para guardar el carrito en localStorage
-function guardarCarritoEnLocalStorage() {
-    // Eliminar el carrito anterior en el localStorage, si existe
-    localStorage.removeItem('cart');
-
-    // Crear el nuevo carrito con los datos actuales
-    const cartData = {
-        idCarrito: idCarrito,
-        productosEnCarrito: productosEnCarrito
-    };
-
-    // Guardar el nuevo carrito en el localStorage
-    localStorage.setItem('cart', JSON.stringify(cartData));
-}
-
-
-// Función para redirigir al carrito sin pasar los IDs en la URL
 function irAlCarrito() {
-    window.location.href = 'carrito.html';
+    // Cambiar a la página del carrito
+    window.location.href = "carrito.html"; // Asegúrate de que "carrito.html" sea la ruta correcta
 }
+
+// Función para cargar el botón de PayPal
+function cargarPaypal() {
+    // Cargar el botón de PayPal con la SDK
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            // Crear la orden de pago usando el total del carrito (precio_total)
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: precio_total // Usa la variable precio_total que ya contiene el total
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            // Cuando el pago es aprobado
+            return actions.order.capture().then(function(details) {
+                // Notificar al usuario sobre el pago exitoso
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Pago exitoso',
+                    text: `Gracias por tu compra, ${details.payer.name.given_name}!`
+                });
+                // Aquí podrías realizar otras acciones como actualizar el carrito en la base de datos
+            });
+        },
+        onError: function(err) {
+            // Si hay un error en el proceso de pago
+            console.error('Error en el pago:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de pago',
+                text: 'Hubo un problema al procesar tu pago. Intenta nuevamente.'
+            });
+        }
+    }).render('#paypal-button-container'); // Renderiza el botón en el contenedor
+}
+
+// Inicializar PayPal cuando la página esté lista
+document.addEventListener('DOMContentLoaded', function() {
+    cargarPaypal(); // Llamar a la función para cargar el botón de PayPal
+});

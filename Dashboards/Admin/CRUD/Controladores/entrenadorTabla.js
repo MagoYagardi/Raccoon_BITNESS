@@ -40,7 +40,7 @@ $(document).ready(function() {
                     response.entrenadores.forEach(function(entrenador) {
                         const row = [
                             entrenador.id_usuario, // ID
-                            entrenador.especialidad, // Nombre
+                            entrenador.especialidades, // Nombre
                             entrenador.detalles, // Especialidad
                             entrenador.precio,
                             `<button class="btn btn-warning" onclick="editarEntrenador(${entrenador.id_usuario})">Editar</button>
@@ -73,7 +73,7 @@ $(document).ready(function() {
                     const entrenador = response.entrenadores[0];
                     // Rellenar el formulario de edición con los datos obtenidos
                     $('#editEntrenadorId').val(entrenador.id_usuario);
-                    $('#editEspecialidad').val(entrenador.especialidad);
+                    $('#editEspecialidad').val(entrenador.especialidades);
                     $('#editDetalles').val(entrenador.detalles);
                     $('#editPrecio').val(entrenador.precio);
                     $('#editEntrenadorModal').modal('show');

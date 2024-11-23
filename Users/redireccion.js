@@ -11,6 +11,7 @@ document.querySelector('.log-form').addEventListener('submit', async (e) => {
         });
 
         const result = await response.json();
+        console.log(result); // Agrega esta línea para ver la respuesta completa del servidor
 
         if (result.status === 'success') {
             // Redirigir según el rol
@@ -18,23 +19,29 @@ document.querySelector('.log-form').addEventListener('submit', async (e) => {
                 case 'admin':
                     window.location.href = '../../Dashboards/Admin/CRUD/Vistas/admin.html';
                     break;
-                case 'cliente':
-                    window.location.href = '../../Dashboards/Cliente/Suscripcion/suscripcionV.html';
-                    break;
                 case 'entrenador':
-                    window.location.href = '../../Dashboards/Entrenador/entrenador.php';
+                    window.location.href = '../../Dashboards/Entrenador/perfil_entrenador.html';
+                    break;
+                case 'cliente':
+                    // Comprobar si el usuario está suscrito
+                    if (result.subscribed) {
+                        window.location.href = '../../Dashboards/Cliente/miperfilCliente/miperfilV.html'; // Si está suscrito, va a su perfil
+                    } else {
+                        window.location.href = '../../Dashboards/Cliente/SuscripcionCliente/suscripcionV.html'; // Si no está suscrito, va a la página de suscripción
+                    }
                     break;
                 default:
                     alert('Rol de usuario no reconocido');
             }
         } else {
             alert(result.message);
-        }
+        }        
     } catch (error) {
         console.error('Error:', error);
         alert('Error en la conexión');
     }
 });
+
 
 document.querySelector('.registro-form').addEventListener('submit', async (e) => {
     e.preventDefault();

@@ -1,142 +1,148 @@
-$(document).ready(function() {
-    // Inicializar DataTable con opciones personalizadas en español
-    var table = $('#tablaActividad').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        language: { 
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros por página",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "No hay datos disponibles en esta tabla",
-            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
-            "sInfoFiltered": "(filtrado de _MAX_ registros en total)",
-            "sSearch": "Buscar:",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sPrevious": "Anterior",
-                "sNext": "Siguiente",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
-        columnDefs: [
-            { orderable: false, targets: 3 } // Deshabilitar la ordenación en la columna de acciones
-        ]
-    });
+$(document).ready(function () {
+    let selectedTask = null;
+    let currentDayColumn = null;
+    let activities = [];
 
-    // Función para obtener las actividades y llenar la tabla
+    // Cargar actividades al inicio
     function cargarActividades() {
         $.ajax({
-            url: '../Modelos/crud_actividad.php', // Archivo PHP que procesa la solicitud GET
+            url: '../Modelos/crud_actividad.php',
             method: 'GET',
-            success: function(response) {
-                if (response.actividades) {
-                    table.clear();
-
-                    response.actividades.forEach(function(actividad) {
-                        const row = [
-                            actividad.id_actividad,
-                            actividad.hora_inicio,
-                            actividad.hora_fin,
-                            actividad.dia,
-                            `<button class="btn btn-warning" onclick="editarActividad(${actividad.id_actividad})">Editar</button>
-                             <button class="btn btn-danger" onclick="eliminarActividad(${actividad.id_actividad})">Eliminar</button>`
-                        ];
-                        table.row.add(row).draw();
+            success: function (response) {
+                if (response.status === 'success') {
+                    response.activities.forEach(activity => {
+                        agregarActividadAlHTML(activity);
+                        activities.push(activity);
                     });
                 } else {
-                    Swal.fire('Error', 'No se encontraron actividades.', 'error');
+                    Swal.fire("Error", "Error al cargar actividades: " + response.message, "error");
                 }
             },
-            error: function() {
-                Swal.fire('Error', 'Error al cargar las actividades.', 'error');
+            error: function (err) {
+                Swal.fire("Error", "Error en la solicitud AJAX al cargar actividades.", "error");
             }
         });
     }
 
-    // Llamada inicial para cargar las actividades cuando se carga la página
-    cargarActividades();
+    cargarActividades(); // Llamar a la función al cargar la página
 
-    $(document).ready(function() {
-        // Manejo del evento de submit del formulario de agregar actividad y clase
-        $('#activityClassForm').submit(function(event) {
-            event.preventDefault();
-    
-            // Recopilar datos del formulario
-            const actividadData = {
-                horaInicio: $('#actividadHoraInicio').val(),
-                horaFin: $('#actividadHoraFin').val(),
-                dia: $('#actividadDia').val(),
-                claseNombre: $('#claseNombre').val() // Asegúrate de que este campo exista en el formulario
+    $('.task-btn').on('click', function () {
+        selectedTask = $(this).data('task');
+        $('#delete').removeClass('active').css('cursor', 'auto');
+    });
+
+    $('#delete').on('click', function () {
+        selectedTask = null;
+        $(this).toggleClass('active');
+        $(this).css('cursor', $(this).hasClass('active') ? 'url("path-to-x-cursor.png"), auto' : 'auto');
+    });
+
+    $('.day-column').on('click', function () {
+        if (selectedTask && !$('#delete').hasClass('active')) {
+            currentDayColumn = $(this);
+            $('#timeModal').css('display', 'flex');
+        }
+    });
+
+    $(document).on('click', '.activity-block', function () {
+        if ($('#delete').hasClass('active')) {
+            const day = $(this).closest('.day-column').data('day');
+            const startTime = $(this).data('startTime');
+            const endTime = $(this).data('endTime');
+            const task = $(this).data('task');
+
+            activities = activities.filter(activity => 
+                !(activity.day === day && activity.startTime === startTime && activity.endTime === endTime && activity.task === task)
+            );
+
+            $(this).remove();
+        }
+    });
+
+    $('#saveTime').on('click', function () {
+        const startTime = $('#startTime').val();
+        const endTime = $('#endTime').val();
+
+        if (startTime && endTime) {
+            const activity = {
+                task: selectedTask,
+                day: currentDayColumn.data('day'),
+                startTime: startTime,
+                endTime: endTime
             };
-    
-            // Validar que todos los campos están llenos
-            if (!actividadData.horaInicio || !actividadData.horaFin || !actividadData.dia || !actividadData.claseNombre) {
-                Swal.fire('Error', 'Todos los campos son obligatorios.', 'error');
-                return;
-            }
-    
-            // Enviar datos al servidor a través de AJAX
-            $.ajax({
-                url: '../Modelos/crud_actividad.php',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(actividadData),
-                success: function(response) {
-                    if (response.success) {
-                        // Ocultar el modal y resetear el formulario
-                        $('#addActivityAndClassModal').modal('hide');
-                        $('#activityClassForm')[0].reset();
-    
-                        // Recargar la tabla de actividades
-                        cargarActividades();
-                        Swal.fire('Éxito', 'Actividad y clase agregadas correctamente.', 'success');
+
+            agregarActividadAlHTML(activity);
+            activities.push(activity);
+
+            $('#timeModal').hide();
+            Swal.fire("Actividad guardada", "La actividad ha sido agregada exitosamente.", "success");
+        } else {
+            Swal.fire("Campos incompletos", "Por favor ingresa una hora de inicio y fin.", "warning");
+        }
+    });
+
+    $('#closeModal').on('click', function () {
+        $('#timeModal').hide();
+    });
+
+    $('#upload').on('click', function () {
+        $.ajax({
+            url: '../Modelos/crud_actividad.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(activities),
+            success: function (response) {
+                try {
+                    const parsedResponse = typeof response === "string" ? JSON.parse(response) : response;
+                    
+                    if (parsedResponse.status === 'success') {
+                        Swal.fire("Éxito", "Actividades subidas con éxito!", "success");
                     } else {
-                        Swal.fire('Error', 'No se pudo agregar la actividad y la clase.', 'error');
+                        Swal.fire("Error", "Error al subir actividades: " + parsedResponse.message, "error");
                     }
-                },
-                error: function() {
-                    Swal.fire('Error', 'Hubo un problema al conectar con el servidor.', 'error');
+                } catch (error) {
+                    console.error("Error al parsear la respuesta:", error);
+                    Swal.fire("Error", "Error en el formato de la respuesta del servidor.", "error");
                 }
-            });
+            },
+            error: function (err) {
+                console.error("Error en la solicitud AJAX:", err);
+                Swal.fire("Error", "Error al subir actividades", "error");
+            }
         });
     });
 
-    // Función para eliminar una actividad
-    window.eliminarActividad = function(id) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "No podrás revertir esta acción",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '../Modelos/crud_actividad.php',
-                    method: 'DELETE',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ id: id }),
-                    success: function(response) {
-                        if (response.success) {
-                            cargarActividades();
-                            Swal.fire('Eliminado', 'La actividad ha sido eliminada.', 'success');
-                        } else {
-                            Swal.fire('Error', response.message, 'error');
-                        }
-                    },
-                    error: function() {
-                        Swal.fire('Error', 'Hubo un error al eliminar la actividad.', 'error');
-                    }
-                });
-            }
-        });
-    };
+    function agregarActividadAlHTML(activity) {
+        const startHour = parseTime(activity.startTime);
+        const endHour = parseTime(activity.endTime);
+        const top = startHour * 50;
+        const height = (endHour - startHour) * 50;
+
+        const activityBlock = $(`
+            <div class="activity-block" style="top: ${top}px; height: ${height}px; background-color: ${getTaskColor(activity.task)};"
+                data-task="${activity.task}" data-start-time="${activity.startTime}" data-end-time="${activity.endTime}">
+                ${activity.task} (${activity.startTime} - ${activity.endTime})
+            </div>
+        `);
+
+        $(`.day-column[data-day="${activity.day}"]`).append(activityBlock);
+    }
+
+    function parseTime(time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours + minutes / 60;
+    }
+
+
+    // Define colors for tasks
+    function getTaskColor(task) {
+        switch (task) {
+            case 'boxeo': return '#FF6F61';
+            case 'gap': return '#FFD700';
+            case 'calistenia': return '#7FFFD4';
+            case 'kickboxing': return '#9370DB';
+            case 'aerobicos': return '#4682B4';
+            default: return '#FFFFFF';
+        }
+    }
 });

@@ -10,7 +10,7 @@ switch($method) {
     case 'GET': // Obtener todos los entrenadores
         try {
             // Consulta para obtener los entrenadores
-            $query = "SELECT e.id_usuario, u.nombre, e.especialidad, e.detalles, e.precio 
+            $query = "SELECT e.id_usuario, u.nombre, e.especialidades, e.detalles, e.precio 
                     FROM ENTRENADOR e
                     INNER JOIN USUARIO u ON e.id_usuario = u.id_usuario";
             $stmt = $conn->prepare($query);
@@ -28,14 +28,14 @@ switch($method) {
             // Obtener los datos de la solicitud PUT
             $data = json_decode(file_get_contents("php://input"), true);
             
-            if (isset($data['id_usuario']) && isset($data['especialidad']) && isset($data['detalles']) && isset($data['precio'])) {
+            if (isset($data['id_usuario']) && isset($data['especialidades']) && isset($data['detalles']) && isset($data['precio'])) {
                 $id_usuario = $data['id_usuario'];
-                $especialidad = $data['especialidad'];
+                $especialidad = $data['especialidades'];
                 $detalles = $data['detalles'];
                 $precio = $data['precio'];
 
                 // Consulta para actualizar los datos del entrenador
-                $query = "UPDATE ENTRENADOR SET especialidad = :especialidad, detalles = :detalles, precio = :precio WHERE id_usuario = :id_usuario";
+                $query = "UPDATE ENTRENADOR SET especialidades = :especialidad, detalles = :detalles, precio = :precio WHERE id_usuario = :id_usuario";
                 $stmt = $conn->prepare($query);
                 $stmt->bindParam(':id_usuario', $id_usuario);
                 $stmt->bindParam(':especialidad', $especialidad);

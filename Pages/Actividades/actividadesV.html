@@ -4,188 +4,334 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Actividades</title>
+    <title>Clases</title>
+    <script src="verificarSub.js" async></script>
     <link rel="icon" href="../../assets/img/BITnessGYM_mini.png" type="image/png">
 
-    <!-- Enlaces unicos-->
-    <script src="actividadesV.js" ></script>
+    <!-- Enlaces únicos -->
+    <script src="vistas.js" defer></script>
+    <script src="actividadesV.js" defer></script>
+    <script src="actividadesC.js" defer></script>
     <script src="../Navbar/navbarV.js" defer></script>
-    <script src="../../Users/formularioV.js" defer></script>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-
+    
     <link rel="stylesheet" href="actividades.css">
-  
 
-    <!-- Enlaces globales-->
-    <link rel="stylesheet" href="../../config/global.css">
+    <!-- Enlaces globales -->
+    <link rel="stylesheet" href="../../../config/global.css">
     <script src="../../config/jquery-3.7.1.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    
-  
+    <script src="../../Users/formularioV.js" defer></script>
 </head>
 <body>
+  <div id="navbar-container"></div>
+  <!-- Modal para registro -->
+  <div id="modal" class="modal">
+    <div class="modal-body" id="modalBody"></div>
+</div>
 
+  
 
-    <header class="header">
-        <h1>Actividades</h1>
-    </header>
+  <h1>Calendario de Actividades</h1>
 
+    <!-- Tabla de Horarios -->
+  <div id="schedule">
+    <div class="column time-column">
+      <div class="time-slot"><img style="width: 2rem;" src="../../assets/img/BITnessGYM_mini.png"></div>
+    </div>
 
-    <!-- Modal para registro -->
-    <div id="modal" class="modal">
-      <div class="modal-body" id="modalBody"></div>
+    <div class="column day-column">
+      <div class="time-slot day">LUNES</div>
+    </div>
+
+    <div class="column day-column">
+      <div class="time-slot day">MARTES</div>
+    </div>
+
+    <div class="column day-column">
+    <div class="time-slot day">MIÉRCOLES</div>
+    </div>
+
+    <div class="column day-column">
+    <div class="time-slot day" >JUEVES</div>
+    </div>
+
+    <div class="column day-column">
+    <div class="time-slot day">VIERNES</div>
+    </div>
+
+    <div class="column day-column">
+    <div class="time-slot day">SÁBADO</div>
+    </div>
+
+    <div class="column day-column">
+    <div class="time-slot day">DOMINGO</div>
+    </div>
+    
   </div>
 
 
-
-  <!-- cleandario semanal de actividades -->
-
-  <h2 style="text-align: center;">Planificador Semanal</h2>
-
-  <div class="week-calendar-container">
-
-    <h1>Select a task</h1>
-
-    <div class="task__container">
-        <div class="task__name" id="break" style="background-color: #f7f779;">Break</div>
-        <div class="task__name" id="gym" style="background-color: #f68080">Gym</div>
-        <div class="task__name" id="study" style="background-color: #faae7b">Study</div>
-        <div class="task__name" id="tv" style="background-color: #2a9d8f">Tv</div>
-        <div class="task__name" id="friends" style="background-color: #a8dadc">Friends</div>
-        <div class="task__name" id="work" style="background-color: #bdb2ff">Work</div>
-        <div class="task__name" id="deselect">Deselect All</div>
-
+  <div id="schedule" class="table">
+    <div class="column time-column">
+      <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
     </div>
 
-    <h3>Add selected task to the schedule</h3>
 
-    <div class="schedule__container">
-        <div class="days__container">
-            <span class="corner"></span>
-            <div class="day">Sunday</div>
-            <div class="day">Monday</div>
-            <div class="day">Tuesday</div>
-            <div class="day">Wednesday</div>
-            <div class="day">Thursday</div>
-            <div class="day">Friday</div>
-            <div class="day">Saturday</div>
+    <!-- Columnas de los días -->
+    <div class="column day-column" data-day="Lunes">
+      <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+    <div class="column day-column" data-day="Martes">
+      <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+    <div class="column day-column" data-day="Miercoles">
+      <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+    <div class="column day-column" data-day="Jueves">
+      <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+    <div class="column day-column" data-day="Viernes">
+      <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+  <div class="column day-column" data-day="Sabado">
+    <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+  <div class="column day-column" data-day="Domingo">
+    <div class="time-slot">0:00</div>
+      <div class="time-slot">1:00</div>
+      <div class="time-slot">2:00</div>
+      <div class="time-slot">3:00</div>
+      <div class="time-slot">4:00</div>
+      <div class="time-slot">5:00</div>
+      <div class="time-slot">6:00</div>
+      <div class="time-slot">7:00</div>
+      <div class="time-slot">8:00</div>
+      <div class="time-slot">9:00</div>
+      <div class="time-slot">10:00</div>
+      <div class="time-slot">11:00</div>
+      <div class="time-slot">12:00</div>
+      <div class="time-slot">13:00</div>
+      <div class="time-slot">14:00</div>
+      <div class="time-slot">15:00</div>
+      <div class="time-slot">16:00</div>
+      <div class="time-slot">17:00</div>
+      <div class="time-slot">18:00</div>
+      <div class="time-slot">19:00</div>
+      <div class="time-slot">20:00</div>
+      <div class="time-slot">21:00</div>
+      <div class="time-slot">22:00</div>
+      <div class="time-slot">23:00</div>
+  </div>
+  </div>
+
+
+  <h2>Clases Disponibles</h2>
+    <div id="class-cards" class="class-cards-container">
+        <div class="class-card" data-class="boxeo">
+            <img src="/assets/img/classes/boxeo.jpg" alt="Boxeo">
+            <h3>Boxeo</h3>
+            <p>Haz clic para anotarte</p>
         </div>
-        <div class="part__day">
-            <span class="time">8am <br> - <br> 12pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
+        <div class="class-card" data-class="gap">
+            <img src="/assets/img/classes/gap.jpg" alt="GAP">
+            <h3>GAP</h3>
+            <p>Haz clic para anotarte</p>
         </div>
-        <div class="part__day">
-            <span class="time">12pm <br> - <br> 2pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
+        <div class="class-card" data-class="calistenia">
+            <img src="/assets/img/classes/calistenia.jpg" alt="Calistenia">
+            <h3>Calistenia</h3>
+            <p>Haz clic para anotarte</p>
         </div>
-        <div class="part__day">
-            <span class="time">2pm <br> - <br> 6pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
+        <div class="class-card" data-class="kickboxing">
+            <img src="/assets/img/classes/kickboxing.jpg" alt="Kickboxing">
+            <h3>Kickboxing</h3>
+            <p>Haz clic para anotarte</p>
         </div>
-        <div class="part__day">
-            <span class="time">6pm <br> - <br> 9pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">9pm <br> - <br> 11pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
+        <div class="class-card" data-class="aerobicos">
+            <img src="/assets/img/classes/aerobicos.jpg" alt="Aeróbicos">
+            <h3>Aeróbicos</h3>
+            <p>Haz clic para anotarte</p>
         </div>
     </div>
 
-    <button class="deleteBtn">Reset Schedule</button>
-
-    <div class="pop-up__container">
-        <div class="pop-up">
-            <h4>Are you sure you want to delete all the tasks from your schedule?</h4>
-            <div class="btn__container">
-                <div class="btn__answer" id="btn__yes">YES</div>
-                <div class="btn__answer" id="btn__no">NO</div>
-            </div>
+    <!-- Agregar modal para mostrar mensajes -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <button id="close-modal">Cerrar</button>
         </div>
     </div>
-
-</div>
-
-
-
-
-      <section class="actividades-grid">
-        <div class="actividad" onmouseover="showButton(this)" onmouseout="hideButton(this)">
-          <img src="../../assets/img/bakset.png" alt="Boxeo">
-          <p>Horario: Lunes 10:00 AM</p>
-          <button class="btn-anotarse" onclick="handleClick('boxeo')">Anotarse</button>
-        </div>
-        <div class="actividad" onmouseover="showButton(this)" onmouseout="hideButton(this)">
-          <img src="../../assets/img/runing-icon.png" alt="Running">
-          <p>Horario: Martes 11:00 AM</p>
-          <button class="btn-anotarse" onclick="handleClick('running')">Anotarse</button>
-        </div>
-        <div class="actividad" onmouseover="showButton(this)" onmouseout="hideButton(this)">
-          <img src="../../assets/img/runing-icon.png" alt="Running">
-          <p>Horario: Martes 11:00 AM</p>
-          <button class="btn-anotarse" onclick="handleClick('running')">Anotarse</button>
-        </div><div class="actividad" onmouseover="showButton(this)" onmouseout="hideButton(this)">
-          <img src="../../assets/img/runing-icon.png" alt="Running">
-          <p>Horario: Martes 11:00 AM</p>
-          <button class="btn-anotarse" onclick="handleClick('running')">Anotarse</button>
-        </div><div class="actividad" onmouseover="showButton(this)" onmouseout="hideButton(this)">
-          <img src="../../assets/img/runing-icon.png" alt="Running">
-          <p>Horario: Martes 11:00 AM</p>
-          <button class="btn-anotarse" onclick="handleClick('running')">Anotarse</button>
-        </div>
-      </section>
-    </main>
-
-
-    <div class="wave-container">
-      <div class="line line-1">
-        <div class="wave wave1" style="background-image: url(../../assets/img/1.png);"></div>
-      </div>
-    
-      <div class="line line-2">
-        <div class="wave wave2" style="background-image: url(../../assets/img/2.png);"></div>
-      </div>
-    
-      <div class="line line-3">
-        <div class="wave wave3" style="background-image: url(../../assets/img/3.png);"></div>
-      </div>
-    </div>
-    
-    <footer>
-      <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.</p>
-    </footer>
-
-    <div class="crt-overlay"></div>
+    <footer style="background: #333; width: 100%; color: white;">
+      <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.;<br>
+        Click en el logo par ver la pagina
+      </p>
+        <!-- Enlace con botón e imagen -->
+        <a href="../../Raccoon_BITNESS/index.html">
+          <button class="image-button" style="background: transparent; border: transparent;">
+        <img src="../../assets/img/LOGOMAPACHE.png" alt="Enlace a Example" style="width: 100px; cursor: pointer;">
+        </button>
+      </a>
+  </footer>
+  
 </body>
 </html>

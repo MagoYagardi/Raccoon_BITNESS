@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7
+class ComposerStaticInit8cdd94c7f29aec0910bf97a508695119
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -19,7 +19,6 @@ class ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7
         ),
         'P' => 
         array (
-            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'PHPMailer\\PHPMailer\\' => 20,
@@ -37,14 +36,10 @@ class ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -65,16 +60,6 @@ class ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'PayPal' => 
-            array (
-                0 => __DIR__ . '/..' . '/paypal/rest-api-sdk-php/lib',
-            ),
         ),
     );
 
@@ -100,10 +85,9 @@ class ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb4cc4b4818c2878e717fcf93d0df66d7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8cdd94c7f29aec0910bf97a508695119::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8cdd94c7f29aec0910bf97a508695119::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8cdd94c7f29aec0910bf97a508695119::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,88 +1,80 @@
 <?php
+session_start();
 require '../../../../config/conexion.php';
-header('Content-Type: application/json');
 
-// Variables recibidas por GET
-$id_usuario = 1; // Ejemplo hardcodeado, reemplazar con ID real del usuario
-$id_producto = $_GET['id_producto'];
-$cantidad = $_GET['cantidad'];
+// Decodificar datos recibidos en formato JSON
+$data = json_decode(file_get_contents('php://input'), true);
 
-// Paso 1: Verificar que haya al menos un producto con stock disponible
-$stmt = $conn->prepare("SELECT COUNT(*) AS total_productos_con_stock FROM PRODUCTO WHERE stock > 0");
-$stmt->execute();
-$result = $stmt->fetch();
+if (isset($data['id_producto'])) {
+    $id_producto = $data['id_producto'];
+    $id_usuario = $_SESSION['id_usuario'];  // Obtener id_usuario desde la sesión
 
-if ($result['total_productos_con_stock'] == 0) {
-    echo json_encode(['success' => false, 'message' => 'No hay productos disponibles en stock']);
-    exit;
-}
+    try {
+        // Verificar si el usuario ya tiene un carrito activo (estado = 1)
+        $stmt = $conn->prepare("SELECT id_carrito FROM CARRITO WHERE id_usuario = :id_usuario AND estado = 1");
+        $stmt->execute([':id_usuario' => $id_usuario]);
+        $carrito = $stmt->fetch();
 
-// Paso 2: Verificar si el usuario ya tiene un carrito activo
-$stmt = $conn->prepare("SELECT id_carrito FROM CARRITO WHERE id_usuario = ? AND estado = 2"); // estado 2 = "abierto"
-$stmt->execute([$id_usuario]);
-$carrito = $stmt->fetch();
+        if (!$carrito) {
+            // Si no hay carrito activo, crear un nuevo carrito
+            $stmt = $conn->prepare("INSERT INTO CARRITO (id_usuario, estado, cant_productos, precio_total, precio_sin_iva, fecha_add) 
+                                    VALUES (:id_usuario, 1, 0, 0, 0, NOW())");
+            $stmt->execute([':id_usuario' => $id_usuario]);
+            $id_carrito = $conn->lastInsertId();
+        } else {
+            // Si ya existe un carrito activo, usar el id de carrito existente
+            $id_carrito = $carrito['id_carrito'];
+        }
 
-if ($carrito) {
-    $id_carrito = $carrito['id_carrito'];
-} else {
-    // Si no hay carrito activo, crear uno nuevo
-    $stmt = $conn->prepare("INSERT INTO CARRITO (id_usuario, estado, cant_productos, precio_total, fecha_add) 
-                            VALUES (?, 2, 0, 0, NOW())");
-    $stmt->execute([$id_usuario]);
-    $id_carrito = $conn->lastInsertId();
+        // Verificar si el producto ya está en el carrito
+        $stmt = $conn->prepare("SELECT id_producto_FK FROM Contiene WHERE id_carrito_FK = :id_carrito AND id_producto_FK = :id_producto");
+        $stmt->execute([':id_carrito' => $id_carrito, ':id_producto' => $id_producto]);
+        $productoCarrito = $stmt->fetch();
 
-    if (!$id_carrito) {
-        echo json_encode(['success' => false, 'message' => 'Error al crear el carrito']);
-        exit;
+        if ($productoCarrito) {
+            // Incrementar cantidad si ya está en el carrito
+            $stmt = $conn->prepare("UPDATE Contiene SET cantidad = cantidad + 1 
+                                    WHERE id_carrito_FK = :id_carrito AND id_producto_FK = :id_producto");
+            $stmt->execute([':id_carrito' => $id_carrito, ':id_producto' => $id_producto]);
+        } else {
+            // Agregar el producto al carrito si no está presente
+            $stmt = $conn->prepare("INSERT INTO Contiene (id_carrito_FK, id_producto_FK, cantidad) 
+                                    VALUES (:id_carrito, :id_producto, 1)");
+            $stmt->execute([':id_carrito' => $id_carrito, ':id_producto' => $id_producto]);
+        }
+
+        // Calcular el precio_sin_iva y precio_total del carrito
+        // Precio sin IVA: Suma de los precios de los productos en el carrito (sin IVA)
+        $stmt = $conn->prepare("SELECT SUM(p.precio * c.cantidad) AS precio_sin_iva
+                                FROM Contiene c 
+                                JOIN PRODUCTO p ON c.id_producto_FK = p.id_producto 
+                                WHERE c.id_carrito_FK = :id_carrito");
+        $stmt->execute([':id_carrito' => $id_carrito]);
+        $precio_sin_iva = $stmt->fetchColumn();
+
+        // Calcular el precio total con IVA (22%)
+        $precio_total = $precio_sin_iva * 1.22; // 22% IVA
+
+        // Actualizar cant_productos, precio_sin_iva y precio_total del carrito
+        $stmt = $conn->prepare("UPDATE CARRITO 
+                                SET cant_productos = (SELECT SUM(cantidad) FROM Contiene WHERE id_carrito_FK = :id_carrito),
+                                    precio_sin_iva = :precio_sin_iva,
+                                    precio_total = :precio_total
+                                WHERE id_carrito = :id_carrito");
+        $stmt->execute([
+            ':id_carrito' => $id_carrito,
+            ':precio_sin_iva' => $precio_sin_iva,
+            ':precio_total' => $precio_total
+        ]);
+
+        // Responder con éxito
+        echo json_encode(['success' => true, 'message' => 'Producto agregado al carrito']);
+    } catch (PDOException $e) {
+        // Capturar errores de la base de datos
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
     }
-}
-
-// Paso 3: Verificar que el producto existe y tiene suficiente stock
-$stmt = $conn->prepare("SELECT precio, stock FROM PRODUCTO WHERE id_producto = ?");
-$stmt->execute([$id_producto]);
-$producto = $stmt->fetch();
-
-if (!$producto) {
-    echo json_encode(['success' => false, 'message' => 'Producto no encontrado']);
-    exit;
-}
-
-$precio_producto = $producto['precio'];
-$stock_producto = $producto['stock'];
-
-if ($cantidad > $stock_producto) {
-    echo json_encode(['success' => false, 'message' => 'Stock insuficiente']);
-    exit;
-}
-
-// Paso 4: Verificar si el producto ya está en el carrito
-$stmt = $conn->prepare("SELECT cantidad FROM Contiene WHERE id_carrito_FK = ? AND id_producto_FK = ?");
-$stmt->execute([$id_carrito, $id_producto]);
-$productoExistente = $stmt->fetch();
-
-if ($productoExistente) {
-    // Si ya está en el carrito, actualizar la cantidad
-    $nuevaCantidad = $productoExistente['cantidad'] + $cantidad;
-    $stmt = $conn->prepare("UPDATE Contiene SET cantidad = ? WHERE id_carrito_FK = ? AND id_producto_FK = ?");
-    $stmt->execute([$nuevaCantidad, $id_carrito, $id_producto]);
 } else {
-    // Si no está en el carrito, agregar el producto
-    $stmt = $conn->prepare("INSERT INTO Contiene (id_carrito_FK, id_producto_FK, cantidad) VALUES (?, ?, ?)");
-    $stmt->execute([$id_carrito, $id_producto, $cantidad]);
+    // Si no se recibe un id_producto válido
+    echo json_encode(['success' => false, 'message' => 'ID de producto no proporcionado']);
 }
-
-// Paso 5: Actualizar el total de productos y precio en el carrito
-$stmt = $conn->prepare("SELECT cant_productos, precio_total FROM CARRITO WHERE id_carrito = ?");
-$stmt->execute([$id_carrito]);
-$carrito = $stmt->fetch();
-
-// Aquí calculamos la nueva cantidad total y el precio total
-$nuevaCantidadCarrito = $carrito['cant_productos'] + $cantidad;
-$nuevoPrecioTotal = $carrito['precio_total'] + ($precio_producto * $cantidad);
-
-// Actualizamos el carrito con los nuevos valores
-$stmt = $conn->prepare("UPDATE CARRITO SET cant_productos = ?, precio_total = ? WHERE id_carrito = ?");
-$stmt->execute([$nuevaCantidadCarrito, $nuevoPrecioTotal, $id_carrito]);
-
-echo json_encode(['success' => true, 'id_carrito' => $id_carrito]);
 ?>

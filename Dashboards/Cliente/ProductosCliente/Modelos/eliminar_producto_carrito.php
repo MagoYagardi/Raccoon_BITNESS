@@ -1,74 +1,55 @@
 <?php
-// Establecer cabeceras para aceptar solicitudes de tipo JSON
-header('Content-Type: application/json');
+session_start();
+require '../../../../config/conexion.php';
 
-// Obtener los datos de la solicitud POST
-$inputData = json_decode(file_get_contents('php://input'), true);
+$id_usuario = $_SESSION['id_usuario'];  // Obtener id_usuario desde la sesión
 
-// Verificar si se han recibido los parámetros necesarios
-if (!isset($inputData['idCarrito']) || !isset($inputData['idProducto'])) {
-    echo json_encode(['error' => 'Faltan parámetros necesarios']);
-    http_response_code(400); // Solicitud incorrecta
-    exit();
-}
+// Comprobar si el usuario está logueado
+if (isset($id_usuario)) {
+    // Obtener los datos enviados por POST
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id_producto = $data['id_producto'];
 
-$idCarrito = $inputData['idCarrito'];
-$idProducto = $inputData['idProducto'];
+    // Eliminar el producto de la tabla Contiene
+    $query = "
+        DELETE FROM Contiene
+        WHERE id_producto_FK = :id_producto AND id_carrito_FK IN (
+            SELECT id_carrito
+            FROM CARRITO
+            WHERE id_usuario = :id_usuario AND estado = 1
+        )
+    ";
 
-// Incluir el archivo de conexión a la base de datos
-// Asegúrate de tener una base de datos configurada y la conexión preparada
-include('../../../../config/conexion.php');
-
-try {
-    // Verificar que el carrito existe
-    $query = "SELECT * FROM CARRITO WHERE id_carrito = :idCarrito";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':idCarrito', $idCarrito, PDO::PARAM_INT);
+    $stmt->bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
+    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $stmt->execute();
 
-    if ($stmt->rowCount() === 0) {
-        echo json_encode(['error' => 'Carrito no encontrado']);
-        http_response_code(404); // No encontrado
-        exit();
-    }
+    // Actualizar el precio total y la cantidad de productos en el carrito
+    $query = "
+        UPDATE CARRITO
+        SET cant_productos = (
+            SELECT SUM(cantidad) FROM Contiene WHERE id_carrito_FK = (
+                SELECT id_carrito FROM CARRITO WHERE id_usuario = :id_usuario AND estado = 1
+            )
+        ),
+        precio_total = (
+            SELECT SUM(p.precio * c.cantidad)
+            FROM Contiene c
+            JOIN PRODUCTO p ON c.id_producto_FK = p.id_producto
+            WHERE c.id_carrito_FK = (
+                SELECT id_carrito FROM CARRITO WHERE id_usuario = :id_usuario AND estado = 1
+            )
+        )
+        WHERE id_usuario = :id_usuario AND estado = 1
+    ";
 
-    // El carrito existe, ahora eliminar el producto
-    $query = "DELETE FROM Contiene WHERE id_carrito_FK = :idCarrito AND id_producto_FK = :idProducto";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':idCarrito', $idCarrito, PDO::PARAM_INT);
-    $stmt->bindParam(':idProducto', $idProducto, PDO::PARAM_INT);
+    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Verificar si el producto fue eliminado
-    if ($stmt->rowCount() > 0) {
-        // Comprobar si el carrito tiene productos restantes
-        $query = "SELECT COUNT(*) FROM Contiene WHERE id_carrito_FK = :idCarrito";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':idCarrito', $idCarrito, PDO::PARAM_INT);
-        $stmt->execute();
-        $rowCount = $stmt->fetchColumn();
-
-        // Si no hay más productos en el carrito, cambiar el estado del carrito a "cancelado"
-        if ($rowCount === 0) {
-            // Actualizar el estado del carrito a 3 (cancelado)
-            $query = "UPDATE CARRITO SET estado = 3 WHERE id_carrito = :idCarrito";
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(':idCarrito', $idCarrito, PDO::PARAM_INT);
-            $stmt->execute();
-            echo json_encode(['message' => 'Carrito vacío, estado cambiado a cancelado']);
-        } else {
-            echo json_encode(['message' => 'Producto eliminado correctamente']);
-        }
-    } else {
-        echo json_encode(['error' => 'No se encontró el producto en el carrito']);
-        http_response_code(404); // No encontrado
-    }
-} catch (PDOException $e) {
-    // En caso de error con la base de datos
-    echo json_encode(['error' => 'Error al procesar la solicitud: ' . $e->getMessage()]);
-    http_response_code(500); // Error interno del servidor
+    echo json_encode(['success' => true, 'message' => 'Producto eliminado']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Usuario no logueado']);
 }
-
-// Cerrar la conexión
-$conn = null;
 ?>

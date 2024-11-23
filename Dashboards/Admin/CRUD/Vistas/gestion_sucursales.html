@@ -9,46 +9,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">  
     <link rel="stylesheet" href="../estilos/admin1.css">
+    <script src="../NavbarAdmin/navbarV.js" defer></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Estilos para el sidebar */
-        .sidebar {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #3E0D56;
-            color: #FFD500;
-            padding-top: 20px;
-        }
-
-        .sidebar a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 16px;
-            color: #FFD500;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            background-color: #26141D;
-            color: #FFD500;
-        }
-
-        .welcome-background {
-            margin-left: 250px;
-            padding: 20px;
-            background-color: white;
-            min-height: 100vh;
-        }
-        
-        .welcome-container {
-            max-width: 1200px;
-            margin: auto;
-            background-color: white;
-            border: 6px solid #7E70C2;
-            padding: 20px;
-        }
 
         .modal-body label {
             color: #000000;
@@ -123,19 +86,26 @@
         padding: 15px; /* Reduce el padding de las celdas */
     }
 
+    body{
+            margin-left: 250px;
+            background-color: rgb(247, 245, 208);
+        }
+        @media (max-width: 768px) {
+        body {
+                margin-left: 80px;
+             }
+            }
+
+footer {
+  padding: 20px;
+  background-color: #f1f1f1;
+  text-align: center;
+  width: 91%;
+}
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <a href="admin.html">Inicio</a>
-        <a href="gestion_usuarios.html">Gestión de Usuarios</a>
-        <a href="gestion_productos.html">Gestión de Productos</a>
-        <a href="gestion_suscripciones.html">Gestión de Suscripciones</a>
-        <a href="gestion_sucursales.html">Gestión de Sucursales</a>
-        <a href="gestion_actividades.html">Gestión de Actividades</a>
-        <a href="gestion_facturacion.html">Ver Facturación</a>
-        <a href="../../../../Users/Sesiones/logout.php" class="btn btn-danger">Cerrar Sesión</a>
-    </div>
+    <div id="navbar-container"></div>
 
     <div class="welcome-background">
         <div class="welcome-container">
@@ -311,6 +281,18 @@
         </div>
     </div>
 </div>
+
+<footer style="background: #333; width: 100%; color: white;">
+    <p>&copy; 2024 BITnessGYM. Todos los derechos reservados.;<br>
+      Click en el logo par ver la pagina
+    </p>
+      <!-- Enlace con botón e imagen -->
+      <a href="../../Raccoon_BITNESS/index.html">
+        <button class="image-button" style="background: transparent; border: transparent;">
+      <img src="../../assets/img/LOGOMAPACHE.png" alt="Enlace a Example" style="width: 100px; cursor: pointer;">
+      </button>
+    </a>
+</footer>
 
 
     <!-- jQuery y Bootstrap JS -->

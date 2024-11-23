@@ -4,6 +4,7 @@
     src: url('../assets/fonts/ChicagoFLF.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-family: 'Courier New', monospace;
 }
 
 /* Fuente SPORT */
@@ -33,16 +34,18 @@
 :root { 
   /*colores*/
  --white-color:  #fff;
- --black-color: #333333;
+ --black-color: #464545;
+ --black-color-1: #2b2b2b;
  --black-color-2: #151515;
+ --soft-black: rgba(0, 0, 0, 0.247);
 
  --logo-yellow:  #ffd500;
  --logo-purple: #2f0b41;
  --logo-blue:  #7e70c2;
 
  --medium-gray-color:  #fdfcf8;
- --soft-purple-:  #d8c2f5;
- --dark-purple-: #2f003d80;
+ --soft-purple:  #d8c2f5;
+ --dark-purple: #2f003d80;
   
 
  /*tamanios de fuentes*/
@@ -65,7 +68,7 @@
  --border-radius-circle: 50%;
 
  --border-width-s: 0.2rem;
- --border-width-m: 0.3rem
+ --border-width-m: 0rem
 
 }
 

@@ -2,8 +2,8 @@
 // Datos de la base de datos
 $host = "localhost";
 $dbname = "BITness_GYM";
-$username = "root";
-$password = "";
+$username = "gymbro1234";
+$password = "raccoon1234";
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

@@ -1,329 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500&display=swap");
-
-
 body {
-  position: relative;
-  background: linear-gradient(135deg, #f5f5f5, #c0c0c0); /* Fondo de gradiente nuevo */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  font-family: 'Ubuntu', Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  text-align: center;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
-  margin-top: 100px;
-  animation: crtScanlines 1s linear infinite;
+  background-color: var(--black-color-1); /* Color de fondo */
+  overflow: visible;
+  
 }
 
-/* Añadimos overlay con líneas horizontales */
-.crt-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(transparent 80%, rgba(0,0,0,0.1) 80%, transparent 100%);
-  background-size: 100% 5px; /* Líneas horizontales */
-  pointer-events: none; /* Evita que interfiera con la interacción */
-  animation: crtScanlinesMove 1s infinite linear;
+#taskButtons {
+  margin: 20px;
 }
 
-/* Animación para las líneas de escaneo */
-@keyframes crtScanlines {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 0 100%;
-  }
-}
-
-@keyframes crtScanlinesMove {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 0 100%;
-  }
-}
-
-.week-calendar-container{
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-h1,h3{
-  margin-bottom: 20px;
-}
-
-/* TASKS CONTAINER */
-.task__container{
-  display: flex;
-  margin-bottom: 3rem;
-  /* background-color: brown; */
-  padding: 10px;
-}
-
-.task__container .task__name{
-  padding: 10px;
-  margin: 0 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.task__name.selected{
-  box-shadow:0px 0px 0px 2px black inset;
-}
-
-#deselect{
-  background-color: #1d3557;
-  color: white;
-}
-
-
-/* SCHEDULE DESIGN */
-.schedule__container{
-  background: linear-gradient(#ebf4f5, #b5c6e0);
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.days__container{
-  display: flex;
-}
-
-.corner{
-  width: 50px;
-  height: 70px;
-  margin: 2px;
-}
-
-.day{
-  width: 100px;
-  border: solid 1px white;
-  color: #9bafd9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
-}
-
-.part__day{
-  display: flex;
-}
-
-.time{
-  width: 50px;
-  height: 70px;
-  color: white;
-  background-color: #103783;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
-}
-
-.task{
-  background-color: white;
-  height: 70px;
-  width: 100px;
-  margin: 2px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-}
-
-/* Reset Button */
-.deleteBtn{
-  padding: 10px 25px;
-  margin-top: 20px;
+.task-btn, #delete {
+  margin: 5px;
+  padding: 10px 20px;
   border: none;
-  background-color: white;
-  border: solid 2px black;
-  border-radius: 5px;
+  color: white;
   cursor: pointer;
-  text-transform: uppercase;
-  outline: none;
 }
 
-.deleteBtn:hover{
-  background-color: #eee;
-}
-
-/* Pop up */
-.pop-up__container{
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 99;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+#schedule {
+  display: flex;
   justify-content: center;
-  align-items: center;
+  margin: 20px;
+  margin-left: 20PX;
+  position: relative;
 }
 
-.pop-up{
-  width: 300px;
-  height: 130px;
+.table {
+  overflow-y: scroll;
+  left: 10px;
+  border-top: 10px;
+  height: 500PX;
+  flex-wrap: wrap;
+}
+
+.column {
+  margin-left: 15px;
+  width: 150px;
+  position: relative;
+  box-shadow: 8px 8px 0px 0px var(--black-color-2);
+  background-color: var(--black-color);
+  border: var(--black-color-2) var(--border-width-m) solid;
+}
+
+.time-column {
+  margin-right: 30px;
+  background-color: var(--soft-purple);
+}
+
+.time-slot {
+  min-height: 50px;
+  max-height: 50px;
+  height: 50px;
+  box-shadow: inset 0 -0.2rem white ;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  background-color: #00b4d8;
-  padding: 15px;
+  justify-content: center;
+  position: relative;
+}
+
+.day-column .time-slot.day {
+  color: rgb(248, 233, 233);
+  box-shadow: inset 0 -0.2rem var(--soft-black) 
+}
+
+
+.day-column .time-slot {
+  color: var(--soft-black);
+  box-shadow: inset 0 -0.2rem var(--soft-black) ;
+}
+
+
+
+.activity-block {
+  font-family: ROUND-BOLD;
+  position: absolute;
+  color: var(--black-color-2);
+  font-weight: bold;
   text-align: center;
-  border-radius: 5px;
+  overflow: hidden;
 }
 
-.btn__container{
+/* ... (mantener los estilos existentes) ... */
+
+.class-cards-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
 }
 
-.btn__answer{
-  margin: 0 20px;
-  background-color: white;
-  padding: 10px;
+.class-card {
+  width: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  background-color: var(--black-color);
+  color: white;
+}
+
+.class-card:hover {
+  transform: scale(1.05);
+}
+
+.class-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
   border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+#close-modal {
+  margin-top: 10px;
+  padding: 5px 10px;
   cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-  .actividades-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-  }
-  
-  .actividad {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    background-color: #f0f0f0;
-    text-align: center;
-    padding: 10px;
-    transition: all 0.3s ease;
-  }
-  
-  .actividad img {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .actividad p {
-    margin: 10px 0;
-  }
-  
-  .btn-anotarse {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: #ff4500;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    display: none;
-  }
-  
-  .actividad:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .actividad:hover .btn-anotarse {
-    display: block;
-  }
-  
-
-
-.line-1{
-  z-index: 15;
-  opacity: 0.5;
-}
-
-.line-2{
-  z-index: 10;
-  opacity: 0.7;
-}
-
-.line-3{
-  z-index: 5;
-
-}
-
-
-.wave-container {
-  position: relative;
-  height: 200px; /* Ajusta la altura según sea necesario */
-  overflow: hidden; /* Para evitar que las olas se salgan del contenedor */
-}
-
-
-.wave {
-    z-index: 0s;
-    position: absolute;
-    left: 0;
-    width: 200%;
-    height: 100%; /* Ajustar según sea necesario */
-    background-size: 100% auto;
-    background-repeat: repeat no-repeat;
-    background-position: 0 bottom;
-    transform-origin: center bottom;
-  }
-  
-.wave1 {
-  -webkit-background-size: 50% 80px;
-  background-size: 50% 80px;
-}
-
-.wave2 {
-  -webkit-background-size: 50% 100px; /* Cambiado de 100px a 80px para consistencia */
-  animation: animate 12s linear infinite;
-  background-size: 50% 100px;
-}
-
-.wave3 {
-  -webkit-background-size: 50% 80px;
-  animation: animate 18s linear infinite;
-  background-size: 50% 80px;
-}
-
-@keyframes animate {
-  0% {
-    transform: translateX(0) translateY(0);
-  }
-  50% {
-    transform: translateX(-25%) translateY(10px); /* Ajuste de altura intermedia */
-  }
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
 footer {
-  position: relative;
-  z-index: 5; /* Mayor que el de las olas */
   padding: 20px;
-  background: rgb(255, 255, 255);
+  background-color: #f1f1f1;
   text-align: center;
-  width: 100%;
+  width: 91%;
 }

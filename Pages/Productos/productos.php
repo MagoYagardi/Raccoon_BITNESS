@@ -12,3 +12,4 @@ try {
     echo json_encode(['error' => 'Error al cargar los productos']);
 }
 ?>
+
